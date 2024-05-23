@@ -1,11 +1,37 @@
+// NOTE: DOWNLOAD CONTROLP5 LIBRARY
+
+import controlP5.*;
+
+ControlP5 cp5;
+int counter = 0;
+
 void setup() {
-  size(1500,1000);
+  size(1000,1000);
+  cp5 = new ControlP5(this);
+  
+  PImage start_button = loadImage("togedepressed.png");
+  
+  cp5.addButton("leCounter")
+     .setValue(0)
+     .setPosition(400,400)
+     .setImage(start_button)
+     .setSize(300,50)
+     ;
 }
 
+public void leCounter() {
+  println("I've been pressed");
+  counter++;
+}
 
 void draw() {
   background(color(0));
-  //noStroke();
+  noStroke();
+  
+  text("Number of times clicked: " + counter, 400, 100);
+  
+  /**
+  // Old button code
   fill(105);
   
   fill(color(155,155,155));
@@ -26,4 +52,5 @@ void draw() {
   fill(color(255));
   textSize(25);
   text("Click to progress machine :)", 1050, 200);
+  **/
 }
