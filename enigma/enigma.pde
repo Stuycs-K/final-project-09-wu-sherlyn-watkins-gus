@@ -1,11 +1,22 @@
 // NOTE: DOWNLOAD CONTROLP5 LIBRARY
-
 import controlP5.*;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.Map;
 
 ControlP5 cp5;
 int counter = 0;
 
+String plaintext = "MY FUNNY PLAINTEXT A B";
+
+Map<Character, Character> plugboard = new Hashtable<>();
+
+
+
 void setup() {
+  plugboard.put('A', 'B');
+  plugboard.put('B', 'A');
+  
   size(1000,1000);
   cp5 = new ControlP5(this);
   
@@ -53,4 +64,21 @@ void draw() {
   textSize(25);
   text("Click to progress machine :)", 1050, 200);
   **/
+}
+
+String plugboard(String ptext) {
+    println("Plugboard");
+    plugboard.forEach((k, v) -> {
+      println(k + ": " + v);
+    });
+    StringBuilder str = new StringBuilder();
+    str.append(ptext);
+    for (int i = 0; i < plaintext.length(); i++) {
+      if (plugboard.containsKey(ptext.charAt(i))) {
+        str.setCharAt(i,plugboard.get(ptext.charAt(i)));
+      }
+    }
+    ptext = str.toString();
+    println(ptext);
+    return ptext;
 }
