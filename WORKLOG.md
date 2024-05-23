@@ -17,6 +17,6 @@ info
 
 Researched enigma algorithm
 
-### date y
+### 5/23/24
 
-info
+Made basic plugboard implementation (substitution cipher) function
