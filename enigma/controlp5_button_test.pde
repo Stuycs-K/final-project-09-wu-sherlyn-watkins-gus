@@ -1,195 +1,114 @@
 /**
- * ControlP5 Button
- * this example shows how to create buttons with controlP5.
- * 
- * find a list of public methods available for the Button Controller 
- * at the bottom of this sketch's source code
- *
- * by Andreas Schlegel, 2012
- * www.sojamo.de/libraries/controlp5
- *
- */
- /**
+* ControlP5 Textfield
+*
+*
+* find a list of public methods available for the Textfield Controller
+* at the bottom of this sketch.
+*
+* by Andreas Schlegel, 2012
+* www.sojamo.de/libraries/controlp5
+*
+*/
+
+/**
 import controlP5.*;
 
 ControlP5 cp5;
 
-int myColor = color(255);
-
-int c1,c2;
-
-float n,n1;
-
+String textValue = "";
 
 void setup() {
-  size(400,600);
-  noStroke();
+  size(700,400);
+  
+  PFont font = createFont("arial",20);
+  
   cp5 = new ControlP5(this);
   
-  // create a new button with name 'buttonA'
-  cp5.addButton("colorA")
-     .setValue(0)
-     .setPosition(100,100)
-     .setSize(200,19)
+  cp5.addTextfield("input")
+     .setPosition(20,100)
+     .setSize(200,40)
+     .setFont(font)
+     .setFocus(true)
+     .setColor(color(255,0,0))
      ;
+                 
+  cp5.addTextfield("textValue")
+     .setPosition(20,170)
+     .setSize(200,40)
+     .setFont(createFont("arial",20))
+     .setAutoClear(false)
+     ;
+       
+  cp5.addBang("clear")
+     .setPosition(240,170)
+     .setSize(80,40)
+     .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
+     ;    
   
-  // and add another 2 buttons
-  cp5.addButton("colorB")
-     .setValue(100)
-     .setPosition(100,120)
-     .setSize(200,19)
+  cp5.addTextfield("default")
+     .setPosition(20,350)
+     .setAutoClear(false)
      ;
      
-  cp5.addButton("colorC")
-     .setPosition(100,140)
-     .setSize(200,19)
-     .setValue(0)
-     ;
-
-  PImage[] imgs = {loadImage("button_a.png"),loadImage("button_b.png"),loadImage("button_c.png")};
-  cp5.addButton("play")
-     .setValue(128)
-     .setPosition(140,300)
-     .setImages(imgs)
-     .updateSize()
-     ;
-     
-  cp5.addButton("playAgain")
-     .setValue(128)
-     .setPosition(210,300)
-     .setImages(imgs)
-     .updateSize()
-     ;
-
+  textFont(font);
 }
 
 void draw() {
-  background(myColor);
-  myColor = lerpColor(c1,c2,n);
-  n += (1-n)* 0.1; 
+  background(0);
+  fill(255);
+  text(cp5.get(Textfield.class,"input").getText(), 360,130);
+  text(textValue, 360,180);
 }
 
-public void controlEvent(ControlEvent theEvent) {
-  println(theEvent.getController().getName());
-  n = 0;
+public void clear() {
+  cp5.get(Textfield.class,"textValue").clear();
 }
 
-// function colorA will receive changes from 
-// controller with name colorA
-public void colorA(int theValue) {
-  println("a button event from colorA: "+theValue);
-  c1 = c2;
-  c2 = color(0,160,100);
+void controlEvent(ControlEvent theEvent) {
+  if(theEvent.isAssignableFrom(Textfield.class)) {
+    println("controlEvent: accessing a string from controller '"
+            +theEvent.getName()+"': "
+            +theEvent.getStringValue()
+            );
+  }
 }
 
-// function colorB will receive changes from 
-// controller with name colorB
-public void colorB(int theValue) {
-  println("a button event from colorB: "+theValue);
-  c1 = c2;
-  c2 = color(150,0,0);
-}
 
-// function colorC will receive changes from 
-// controller with name colorC
-public void colorC(int theValue) {
-  println("a button event from colorC: "+theValue);
-  c1 = c2;
-  c2 = color(255,255,0);
-}
-
-public void play(int theValue) {
-  println("a button event from buttonB: "+theValue);
-  c1 = c2;
-  c2 = color(0,0,0);
+public void input(String theText) {
+  // automatically receives results from controller input
+  println("a textfield event for controller 'input' : "+theText);
 }
 
 **/
 
 
 /*
-a list of all methods available for the Button Controller
-use ControlP5.printPublicMethodsFor(Button.class);
+a list of all methods available for the Textfield Controller
+use ControlP5.printPublicMethodsFor(Textfield.class);
 to print the following list into the console.
 
-You can find further details about class Button in the javadoc.
+You can find further details about class Textfield in the javadoc.
 
 Format:
 ClassName : returnType methodName(parameter type)
 
-
-controlP5.Button : Button activateBy(int) 
-controlP5.Button : Button setOff() 
-controlP5.Button : Button setOn() 
-controlP5.Button : Button setSwitch(boolean) 
-controlP5.Button : Button setValue(float) 
-controlP5.Button : Button update() 
-controlP5.Button : String getInfo() 
-controlP5.Button : String toString() 
-controlP5.Button : boolean getBooleanValue() 
-controlP5.Button : boolean isOn() 
-controlP5.Button : boolean isPressed() 
-controlP5.Controller : Button addCallback(CallbackListener) 
-controlP5.Controller : Button addListener(ControlListener) 
-controlP5.Controller : Button bringToFront() 
-controlP5.Controller : Button bringToFront(ControllerInterface) 
-controlP5.Controller : Button hide() 
-controlP5.Controller : Button linebreak() 
-controlP5.Controller : Button listen(boolean) 
-controlP5.Controller : Button lock() 
-controlP5.Controller : Button plugTo(Object) 
-controlP5.Controller : Button plugTo(Object, String) 
-controlP5.Controller : Button plugTo(Object[]) 
-controlP5.Controller : Button plugTo(Object[], String) 
-controlP5.Controller : Button registerProperty(String) 
-controlP5.Controller : Button registerProperty(String, String) 
-controlP5.Controller : Button registerTooltip(String) 
-controlP5.Controller : Button removeBehavior() 
-controlP5.Controller : Button removeCallback() 
-controlP5.Controller : Button removeCallback(CallbackListener) 
-controlP5.Controller : Button removeListener(ControlListener) 
-controlP5.Controller : Button removeProperty(String) 
-controlP5.Controller : Button removeProperty(String, String) 
-controlP5.Controller : Button setArrayValue(float[]) 
-controlP5.Controller : Button setArrayValue(int, float) 
-controlP5.Controller : Button setBehavior(ControlBehavior) 
-controlP5.Controller : Button setBroadcast(boolean) 
-controlP5.Controller : Button setCaptionLabel(String) 
-controlP5.Controller : Button setColor(CColor) 
-controlP5.Controller : Button setColorActive(int) 
-controlP5.Controller : Button setColorBackground(int) 
-controlP5.Controller : Button setColorCaptionLabel(int) 
-controlP5.Controller : Button setColorForeground(int) 
-controlP5.Controller : Button setColorValueLabel(int) 
-controlP5.Controller : Button setDecimalPrecision(int) 
-controlP5.Controller : Button setDefaultValue(float) 
-controlP5.Controller : Button setHeight(int) 
-controlP5.Controller : Button setId(int) 
-controlP5.Controller : Button setImages(PImage, PImage, PImage) 
-controlP5.Controller : Button setImages(PImage, PImage, PImage, PImage) 
-controlP5.Controller : Button setLabelVisible(boolean) 
-controlP5.Controller : Button setLock(boolean) 
-controlP5.Controller : Button setMax(float) 
-controlP5.Controller : Button setMin(float) 
-controlP5.Controller : Button setMouseOver(boolean) 
-controlP5.Controller : Button setMoveable(boolean) 
-controlP5.Controller : Button setPosition(PVector) 
-controlP5.Controller : Button setPosition(float, float) 
-controlP5.Controller : Button setSize(PImage) 
-controlP5.Controller : Button setSize(int, int) 
-controlP5.Controller : Button setStringValue(String) 
-controlP5.Controller : Button setUpdate(boolean) 
-controlP5.Controller : Button setValueLabel(String) 
-controlP5.Controller : Button setView(ControllerView) 
-controlP5.Controller : Button setVisible(boolean) 
-controlP5.Controller : Button setWidth(int) 
-controlP5.Controller : Button show() 
-controlP5.Controller : Button unlock() 
-controlP5.Controller : Button unplugFrom(Object) 
-controlP5.Controller : Button unplugFrom(Object[]) 
-controlP5.Controller : Button unregisterTooltip() 
-controlP5.Controller : Button update() 
-controlP5.Controller : Button updateSize() 
+controlP5.Textfield : String getText() 
+controlP5.Textfield : Textfield clear() 
+controlP5.Textfield : Textfield keepFocus(boolean) 
+controlP5.Textfield : Textfield setAutoClear(boolean) 
+controlP5.Textfield : Textfield setFocus(boolean) 
+controlP5.Textfield : Textfield setFont(ControlFont) 
+controlP5.Textfield : Textfield setFont(PFont) 
+controlP5.Textfield : Textfield setFont(int) 
+controlP5.Textfield : Textfield setText(String) 
+controlP5.Textfield : Textfield setValue(String) 
+controlP5.Textfield : Textfield setValue(float) 
+controlP5.Textfield : boolean isAutoClear() 
+controlP5.Textfield : int getIndex() 
+controlP5.Textfield : void draw(PApplet) 
+controlP5.Textfield : void keyEvent(KeyEvent) 
+controlP5.Textfield : void setInputFilter(int) 
+controlP5.Textfield : void setPasswordMode(boolean) 
 controlP5.Controller : CColor getColor() 
 controlP5.Controller : ControlBehavior getBehavior() 
 controlP5.Controller : ControlWindow getControlWindow() 
@@ -209,6 +128,67 @@ controlP5.Controller : String getName()
 controlP5.Controller : String getStringValue() 
 controlP5.Controller : String toString() 
 controlP5.Controller : Tab getTab() 
+controlP5.Controller : Textfield addCallback(CallbackListener) 
+controlP5.Controller : Textfield addListener(ControlListener) 
+controlP5.Controller : Textfield bringToFront() 
+controlP5.Controller : Textfield bringToFront(ControllerInterface) 
+controlP5.Controller : Textfield hide() 
+controlP5.Controller : Textfield linebreak() 
+controlP5.Controller : Textfield listen(boolean) 
+controlP5.Controller : Textfield lock() 
+controlP5.Controller : Textfield plugTo(Object) 
+controlP5.Controller : Textfield plugTo(Object, String) 
+controlP5.Controller : Textfield plugTo(Object[]) 
+controlP5.Controller : Textfield plugTo(Object[], String) 
+controlP5.Controller : Textfield registerProperty(String) 
+controlP5.Controller : Textfield registerProperty(String, String) 
+controlP5.Controller : Textfield registerTooltip(String) 
+controlP5.Controller : Textfield removeBehavior() 
+controlP5.Controller : Textfield removeCallback() 
+controlP5.Controller : Textfield removeCallback(CallbackListener) 
+controlP5.Controller : Textfield removeListener(ControlListener) 
+controlP5.Controller : Textfield removeProperty(String) 
+controlP5.Controller : Textfield removeProperty(String, String) 
+controlP5.Controller : Textfield setArrayValue(float[]) 
+controlP5.Controller : Textfield setArrayValue(int, float) 
+controlP5.Controller : Textfield setBehavior(ControlBehavior) 
+controlP5.Controller : Textfield setBroadcast(boolean) 
+controlP5.Controller : Textfield setCaptionLabel(String) 
+controlP5.Controller : Textfield setColor(CColor) 
+controlP5.Controller : Textfield setColorActive(int) 
+controlP5.Controller : Textfield setColorBackground(int) 
+controlP5.Controller : Textfield setColorCaptionLabel(int) 
+controlP5.Controller : Textfield setColorForeground(int) 
+controlP5.Controller : Textfield setColorValueLabel(int) 
+controlP5.Controller : Textfield setDecimalPrecision(int) 
+controlP5.Controller : Textfield setDefaultValue(float) 
+controlP5.Controller : Textfield setHeight(int) 
+controlP5.Controller : Textfield setId(int) 
+controlP5.Controller : Textfield setImages(PImage, PImage, PImage) 
+controlP5.Controller : Textfield setImages(PImage, PImage, PImage, PImage) 
+controlP5.Controller : Textfield setLabelVisible(boolean) 
+controlP5.Controller : Textfield setLock(boolean) 
+controlP5.Controller : Textfield setMax(float) 
+controlP5.Controller : Textfield setMin(float) 
+controlP5.Controller : Textfield setMouseOver(boolean) 
+controlP5.Controller : Textfield setMoveable(boolean) 
+controlP5.Controller : Textfield setPosition(PVector) 
+controlP5.Controller : Textfield setPosition(float, float) 
+controlP5.Controller : Textfield setSize(PImage) 
+controlP5.Controller : Textfield setSize(int, int) 
+controlP5.Controller : Textfield setStringValue(String) 
+controlP5.Controller : Textfield setUpdate(boolean) 
+controlP5.Controller : Textfield setValueLabel(String) 
+controlP5.Controller : Textfield setView(ControllerView) 
+controlP5.Controller : Textfield setVisible(boolean) 
+controlP5.Controller : Textfield setWidth(int) 
+controlP5.Controller : Textfield show() 
+controlP5.Controller : Textfield unlock() 
+controlP5.Controller : Textfield unplugFrom(Object) 
+controlP5.Controller : Textfield unplugFrom(Object[]) 
+controlP5.Controller : Textfield unregisterTooltip() 
+controlP5.Controller : Textfield update() 
+controlP5.Controller : Textfield updateSize() 
 controlP5.Controller : boolean isActive() 
 controlP5.Controller : boolean isBroadcast() 
 controlP5.Controller : boolean isInside() 
