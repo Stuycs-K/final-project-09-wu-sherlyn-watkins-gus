@@ -1,21 +1,21 @@
 # Work Log
 
-## GROUP MEMBER 1
+## SHERLYN WU
 
-### date x
+### 5/22/24
 
-info
+Made button template for future UI use
 
 ### date y
 
 info
 
 
-## GROUP MEMBER 2
+## GUS WATKINS
 
-### date x
+### 5/22/24
 
-info
+Researched enigma algorithm
 
 ### date y
 
