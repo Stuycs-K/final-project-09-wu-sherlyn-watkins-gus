@@ -5,15 +5,15 @@ import java.util.Hashtable;
 import java.util.Map;
 
 ControlP5 cp5;
-int counter = -1;
+int counter = 0;
 String curMessage = "";
 String plaintext = "MY FUNNY PLAINTEXT A B";
 Map<Character, Character> plugboard = new Hashtable<>();
 
 void setup() {
+  print("yo soy setup");
   size(1000,1000);
   cp5 = new ControlP5(this);
-  
   plugboard.put('A', 'B');
   plugboard.put('B', 'A');
   
@@ -32,6 +32,7 @@ void setup() {
      .setFocus(true)
      .setColor(color(255,0,0))
      ;
+     
 }
 
 public void progress() {
@@ -44,13 +45,19 @@ public void input(String text) {
 }
 
 void draw() {
+  //println("je suis draw");
   background(color(0));
   noStroke();
   
   textSize(25);
   text("Click togedepressed.png to reset last input", 400, 100);
-  text("Last input: " + curMessage, 400, 150);
-  text("Number of times clicked: " + counter, 400, 200);
+  String liveInput = cp5.get(Textfield.class,"input").getText();
+  if (!liveInput.isEmpty()) {
+    //text("Plugboard says: " + plugboard(liveInput), 400, 300);
+  }
+  text("Live input: "+liveInput, 400,150);
+  text("Last input: " + curMessage, 400, 200);
+  text("Number of times clicked: " + counter, 400, 250);
   
   if (counter%10==0) {
     text("hhghhgg", 400, 300);
