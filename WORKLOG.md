@@ -19,3 +19,7 @@ Researched enigma algorithm
 ### 5/23/24
 
 Made basic plugboard implementation (substitution cipher) function
+
+### 5/24/24
+
+Fixed line endings for processing project files, made basic layout for the rotor function

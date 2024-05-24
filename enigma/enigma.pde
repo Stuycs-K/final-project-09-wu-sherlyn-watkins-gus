@@ -8,6 +8,14 @@ ControlP5 cp5;
 int counter = 0;
 String curMessage = "";
 String plaintext = "MY FUNNY PLAINTEXT A B";
+
+String rotor1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+String rotor2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+String rotor3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+int rotor1pos = 0;
+int rotor2pos = 0;
+int rotor3pos = 0;
+
 Map<Character, Character> plugboard = new Hashtable<>();
 
 void setup() {
@@ -78,4 +86,16 @@ String plugboard(String ptext) {
     }
     ptext = str.toString();
     return ptext;
+}
+
+String rotors(String ptext) {
+  // physical layout: reflector 3 2 1
+  // run shift w rotor1
+  // if at certain pos, shift rotor2
+  // run shift with rotor2
+  // if at certain pos, shift rotor3
+  // run shift with rotor3
+  // reflect and do the same thing in other direction
+  // TODO: split into function w classes later w sig runRotor(Rotor rotor, Rotor nextrotor) with nextrotor sometimes being null (if on r3)
+  return ptext;
 }
