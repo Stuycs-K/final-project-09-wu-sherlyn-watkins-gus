@@ -6,10 +6,9 @@
 
 Made button template for future UI use
 
-### date y
+### 5/23/24
 
-info
-
+Switched to controlP5 for better buttons, created a text box
 
 ## GUS WATKINS
 
