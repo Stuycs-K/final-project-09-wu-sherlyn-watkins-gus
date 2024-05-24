@@ -7,6 +7,7 @@ import java.util.Map;
 ControlP5 cp5;
 int counter = 0;
 String curMessage = "";
+String modified = "";
 String plaintext = "MY FUNNY PLAINTEXT A B";
 
 String rotor1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -45,10 +46,12 @@ void setup() {
 
 public void progress() {
   curMessage = "";
+  modified = "";
   counter++;
 }
 
 public void input(String text) {
+  
   curMessage = text;
 }
 
@@ -62,13 +65,16 @@ void draw() {
   String liveInput = cp5.get(Textfield.class,"input").getText();
   if (!liveInput.isEmpty()) {
     //text("Plugboard says: " + plugboard(liveInput), 400, 300);
+      modified = modified + (char)(liveInput.charAt(liveInput.length()-1) + 20);
+    // issue: don't use modified = modified + format
   }
+  text("Modified: " + modified, 400,200);
   text("Live input: "+liveInput, 400,150);
-  text("Last input: " + curMessage, 400, 200);
-  text("Number of times clicked: " + counter, 400, 250);
+  text("Last input: " + curMessage, 400, 250);
+  text("Number of times clicked: " + counter, 400, 300);
   
   if (counter%10==0) {
-    text("hhghhgg", 400, 300);
+    text("hhghhgg", 400, 350);
   }
 }
 
