@@ -17,7 +17,7 @@ void setup() {
   cp5 = new ControlP5(this);
   plugboard.put('A', 'B');
   plugboard.put('B', 'A');
-  
+  plugboard(plaintext);
   PImage start_button = loadImage("togedepressed.png");
   
   cp5.addButton("progress")
@@ -71,10 +71,10 @@ void draw() {
 }
 
 String plugboard(String ptext) {
-    println("Plugboard");
-    plugboard.forEach((k, v) -> {
-      println(k + ": " + v);
-    });
+    //println("Plugboard");
+    //plugboard.forEach((k, v) -> {
+    //  println(k + ": " + v);
+    //});
     StringBuilder str = new StringBuilder();
     str.append(ptext);
     for (int i = 0; i < plaintext.length(); i++) {
@@ -83,6 +83,5 @@ String plugboard(String ptext) {
       }
     }
     ptext = str.toString();
-    println(ptext);
     return ptext;
 }
