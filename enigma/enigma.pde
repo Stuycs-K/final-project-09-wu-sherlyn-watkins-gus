@@ -13,9 +13,13 @@ String plaintext = "MY FUNNY PLAINTEXT A B";
 String rotor1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 String rotor2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 String rotor3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-int rotor1pos = 0;
-int rotor2pos = 0;
-int rotor3pos = 0;
+
+int rotor1initial, rotor2initial, rotor3initial = 0;
+int rotor1pos = rotor1initial;
+int rotor2pos = rotor2initial;
+int rotor3pos = rotor3initial;
+
+String reflector = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 Map<Character, Character> plugboard = new Hashtable<>();
 
@@ -78,6 +82,10 @@ void draw() {
   }
 }
 
+String clean(String str) {
+  return str.replaceAll("[^a-zA-Z0-9]", "");  
+}
+
 String plugboard(String ptext) {
     //println("Plugboard");
     //plugboard.forEach((k, v) -> {
@@ -95,6 +103,29 @@ String plugboard(String ptext) {
 }
 
 String rotors(String ptext) {
+  StringBuilder str = new StringBuilder();
+  str.append(ptext);
+  for (int i = 0; i < plaintext.length(); i++) {
+    // handle shifts if rotors loop around
+    // TODO: THIS SHIFTING IS INCORRECT (only one spot, not handled between shifts, etc)
+    // also check before/after
+    rotor1pos = (rotor1pos + 1) % 26;
+    if (rotor1pos == 0) rotor2pos = (rotor2pos + 1) % 26;
+    if (rotor2pos == 0) rotor3pos = (rotor3pos + 1) % 26;
+    
+    // first rotor runthru 1->3
+    str.setCharAt(i, rotor1.charAt((str.charAt(i) - 65 + rotor1pos) % 26));
+    str.setCharAt(i, rotor2.charAt((str.charAt(i) - 65 + rotor2pos) % 26));
+    str.setCharAt(i, rotor3.charAt((str.charAt(i) - 65 + rotor3pos) % 26));
+    
+    // reflect
+    str.setCharAt(i, reflector.charAt((str.charAt(i) - 65) % 26));
+    
+    // and go back through 3->1
+    str.setCharAt(i, rotor3.charAt((str.charAt(i) - 65 + rotor3pos) % 26));
+    str.setCharAt(i, rotor2.charAt((str.charAt(i) - 65 + rotor2pos) % 26));
+    str.setCharAt(i, rotor1.charAt((str.charAt(i) - 65 + rotor1pos) % 26));
+  }
   // physical layout: reflector 3 2 1
   // run shift w rotor1
   // if at certain pos, shift rotor2
@@ -103,5 +134,16 @@ String rotors(String ptext) {
   // run shift with rotor3
   // reflect and do the same thing in other direction
   // TODO: split into function w classes later w sig runRotor(Rotor rotor, Rotor nextrotor) with nextrotor sometimes being null (if on r3)
+  // reset rotor positions to settings for next encode
+  rotor1pos = rotor1initial;
+  rotor2pos = rotor2initial;
+  rotor3pos = rotor3initial;
+  return ptext;
+}
+
+String enigma(String ptext) {
+  ptext = plugboard(ptext);
+  ptext = rotors(ptext);
+  ptext = plugboard(ptext);
   return ptext;
 }
