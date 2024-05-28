@@ -23,3 +23,7 @@ Made basic plugboard implementation (substitution cipher) function
 ### 5/24/24
 
 Fixed line endings for processing project files, made basic layout for the rotor function
+
+### 5/28/24
+
+Worked on the initial implementation of the rotor function (now mostly finished), made an `enigma` function to combine the plugboard and rotors
