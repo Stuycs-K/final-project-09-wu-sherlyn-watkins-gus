@@ -64,9 +64,12 @@ void draw() {
   text("Click togedepressed.png to reset last input", 400, 100);
   String liveInput = cp5.get(Textfield.class,"input").getText();
   if (!liveInput.isEmpty()) {
-    //text("Plugboard says: " + plugboard(liveInput), 400, 300);
-      modified = modified + (char)(liveInput.charAt(liveInput.length()-1) + 20);
-    // issue: don't use modified = modified + format
+    //text("Plugboard says: " + plugboard(liveInput), 400, 300);f
+    String modInput = "";
+    for (int i = 0; i < liveInput.length(); i++) {
+      modInput = modInput + (char)(liveInput.charAt(i)+ 20);
+    }
+    modified = modInput;
   }
   text("Modified: " + modified, 400,200);
   text("Live input: "+liveInput, 400,150);
