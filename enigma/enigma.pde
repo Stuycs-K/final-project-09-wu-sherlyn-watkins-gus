@@ -118,9 +118,7 @@ String rotors(String ptext) {
   StringBuilder str = new StringBuilder();
   str.append(ptext);
   for (int i = 0; i < plaintext.length(); i++) {
-    // handle shifts if rotors loop around
-    // TODO: THIS SHIFTING IS INCORRECT (only one spot, not handled between shifts, etc)
-    // also check before/after
+    // currently being refactored to classes to better manage ring settings and all of that
     rotor1pos = (rotor1pos + 1) % 26;
     if (rotor1pos == 0) rotor2pos = (rotor2pos + 1) % 26;
     if (rotor2pos == 0) rotor3pos = (rotor3pos + 1) % 26;
