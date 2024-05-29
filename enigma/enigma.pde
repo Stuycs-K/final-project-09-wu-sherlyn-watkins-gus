@@ -8,6 +8,8 @@ ControlP5 cp5;
 int counter = 0;
 String curMessage = "";
 String modified = "";
+boolean stepping = false;
+
 String plaintext = "MY FUNNY PLAINTEXT A B";
 
 String rotor1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -31,11 +33,25 @@ void setup() {
   plugboard.put('B', 'A');
   plugboard(plaintext);
   PImage start_button = loadImage("togedepressed.png");
+  PImage activate_button = loadImage("steg test.png");
   
   cp5.addButton("progress")
      .setValue(0)
-     .setPosition(400,400)
+     .setPosition(600,400)
      .setImage(start_button)
+     .setSize(300,50)
+     ;
+     
+  cp5.addButton("activate")
+     .setValue(0)
+     .setPosition(200,400)
+     //.setImage(activate_button)
+     .setSize(300,50)
+     ;
+     
+  cp5.addButton("step")
+     .setValue(0)
+     .setPosition(200,450)
      .setSize(300,50)
      ;
      
@@ -48,15 +64,29 @@ void setup() {
      
 }
 
+// activate stepping mode
+public void activate() {
+  stepping = !stepping;
+  println("Stepping status: " + stepping);
+}
+
+// go step by step
+public void step() {
+  if (stepping) {
+    counter++;
+  }
+}
+
+// reset
 public void progress() {
   curMessage = "";
   modified = "";
-  counter++;
+  counter = 0;
+  stepping = !stepping;
 }
 
 public void input(String text) {
-  
-  curMessage = text;
+    curMessage = text;
 }
 
 void draw() {
@@ -67,18 +97,19 @@ void draw() {
   textSize(25);
   text("Click togedepressed.png to reset last input", 400, 100);
   String liveInput = cp5.get(Textfield.class,"input").getText();
-  if (!liveInput.isEmpty()) {
-    //text("Plugboard says: " + plugboard(liveInput), 400, 300);f
-    modified = testCipher(liveInput);
+  modified = testCipher(liveInput);
+  if (stepping) {
+    if (counter < modified.length()) {
+      text("Stepping input: "+modified.substring(0,counter), 400,150);
+    } else {
+      text("Stepping input: "+modified+" (steps complete)", 400,150); 
+    }
+  } else {
+    text("Stepping not activated", 400,150);
   }
   text("Modified: " + modified, 400,200);
-  text("Live input: "+liveInput, 400,150);
   text("Last input: " + curMessage, 400, 250);
-  text("Number of times clicked: " + counter, 400, 300);
-  
-  if (counter%10==0) {
-    text("hhghhgg", 400, 350);
-  }
+  text("Stepping status: " + stepping, 400, 300);
 }
 
 // temp rot13 cipher for testing
