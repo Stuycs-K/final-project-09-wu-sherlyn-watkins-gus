@@ -38,8 +38,8 @@ class Rotor {
   public void rotate() {
     rotorpos = (rotorpos + 1) % 26;
   }
+  
   public Character apply(Character c) {
-    // TODO: apply ring setting!
-    return letters.charAt((c - 65 + rotorpos));
+    return letters.charAt((c - 65 + rotorpos + ringpos) % 26);
   }
 }
