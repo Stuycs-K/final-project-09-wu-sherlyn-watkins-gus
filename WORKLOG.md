@@ -35,3 +35,7 @@ Fixed line endings for processing project files, made basic layout for the rotor
 ### 5/28/24
 
 Worked on the initial implementation of the rotor function (now mostly finished), made an `enigma` function to combine the plugboard and rotors
+
+### 5/29/24
+
+Moved the rotor implementation to a class, began figuring out organization to make visualization possible w cipher state data
