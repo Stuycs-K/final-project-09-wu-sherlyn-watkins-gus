@@ -69,11 +69,7 @@ void draw() {
   String liveInput = cp5.get(Textfield.class,"input").getText();
   if (!liveInput.isEmpty()) {
     //text("Plugboard says: " + plugboard(liveInput), 400, 300);f
-    String modInput = "";
-    for (int i = 0; i < liveInput.length(); i++) {
-      modInput = modInput + (char)(liveInput.charAt(i)+ 20);
-    }
-    modified = modInput;
+    modified = testCipher(liveInput);
   }
   text("Modified: " + modified, 400,200);
   text("Live input: "+liveInput, 400,150);
@@ -83,6 +79,19 @@ void draw() {
   if (counter%10==0) {
     text("hhghhgg", 400, 350);
   }
+}
+
+// temp rot13 cipher for testing
+String testCipher(String sbeve) {
+  String modInput = "";
+  for (int i = 0; i < sbeve.length(); i++) {
+    int newInt = Character.toLowerCase(sbeve.charAt(i))+13;
+    if (newInt > 122) {
+      newInt -= 26;
+    }
+    modInput = modInput + (char)newInt;
+  }
+  return modInput;
 }
 
 String clean(String str) {
