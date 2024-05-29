@@ -34,13 +34,6 @@ void setup() {
   plugboard(plaintext);
   PImage start_button = loadImage("togedepressed.png");
   PImage activate_button = loadImage("steg test.png");
-  
-  cp5.addButton("progress")
-     .setValue(0)
-     .setPosition(600,400)
-     .setImage(start_button)
-     .setSize(300,50)
-     ;
      
   cp5.addButton("activate")
      .setValue(0)
@@ -62,11 +55,17 @@ void setup() {
      .setColor(color(255,0,0))
      ;
      
+  cp5.addButton("progress")
+     .setValue(0)
+     .setPosition(600,400)
+     .setImage(start_button)
+     .setSize(300,50)
+     ;
 }
 
 // activate stepping mode
 public void activate() {
-  stepping = !stepping;
+  stepping = true;
   println("Stepping status: " + stepping);
 }
 
@@ -82,7 +81,7 @@ public void progress() {
   curMessage = "";
   modified = "";
   counter = 0;
-  stepping = !stepping;
+  stepping = false;
 }
 
 public void input(String text) {
@@ -95,20 +94,21 @@ void draw() {
   noStroke();
   
   textSize(25);
+  text("Clear textbox before stepping through another input!", 400, 50);
   text("Click togedepressed.png to reset last input", 400, 100);
   String liveInput = cp5.get(Textfield.class,"input").getText();
+  text("Input: " + liveInput, 400, 150);
   modified = testCipher(liveInput);
   if (stepping) {
     if (counter < modified.length()) {
-      text("Stepping input: "+modified.substring(0,counter), 400,150);
+      text("Stepping input: "+modified.substring(0,counter), 400,200);
     } else {
-      text("Stepping input: "+modified+" (steps complete)", 400,150); 
+      text("Stepping input: "+modified+" (steps complete)", 400,200); 
     }
   } else {
-    text("Stepping not activated", 400,150);
+    text("Stepping not activated", 400,200);
   }
-  text("Modified: " + modified, 400,200);
-  text("Last input: " + curMessage, 400, 250);
+  text("Modified: " + modified, 400,250);
   text("Stepping status: " + stepping, 400, 300);
 }
 
