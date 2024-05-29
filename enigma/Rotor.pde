@@ -1,9 +1,9 @@
 class Rotor {
   
-  String letters;
-  String notchedletters;
-  int rotorpos;
-  int ringpos;
+  public String letters;
+  public String notchedletters;
+  public int rotorpos;
+  public int ringpos;
   
   public Rotor(String letters, int rotorpos, int ringpos) {
     this.letters = letters;
