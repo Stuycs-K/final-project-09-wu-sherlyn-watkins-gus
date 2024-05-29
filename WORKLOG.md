@@ -10,6 +10,14 @@ Made button template for future UI use
 
 Switched to controlP5 for better buttons, created a text box
 
+### 5/24/24
+
+Started implementing live text modifications
+
+### 5/28/24
+
+Fixed live text modification bug
+
 ## GUS WATKINS
 
 ### 5/22/24
