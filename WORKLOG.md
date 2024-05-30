@@ -43,3 +43,8 @@ Worked on the initial implementation of the rotor function (now mostly finished)
 ### 5/29/24
 
 Moved the rotor implementation to a class, began figuring out organization to make visualization possible w cipher state data
+
+### 5/30/24
+
+
+Hooked up the plugboard function and rotor class to the main project file, began debugging+fixing the implementation
