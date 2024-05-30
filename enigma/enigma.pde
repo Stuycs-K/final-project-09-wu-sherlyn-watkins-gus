@@ -101,6 +101,7 @@ void draw() {
       int tempInt = (char)testStepCipherChar(liveInput.charAt(counter/stepNum),counter%stepNum);
       stepMod = (char)tempInt;
       text("Stepping input: "+modified.substring(0,counter/stepNum)+stepMod, 400,200);
+      text("Step: "+(counter%stepNum+1), 400, 350);
     } else {
       text("Stepping input: "+modified+" (steps complete)", 400,200); 
     }
@@ -137,6 +138,10 @@ String testStepCipher(String sbeve, int stepPart) {
 
 // temp char by char for the cipher: first the char goes through rot12, then the char goes through rot1
 int testStepCipherChar(char sbeve, int stepPart) {
+  // immediately returns newInt if it's not a letter
+  if (!Character.isLetter(sbeve)) {
+    return sbeve;
+  }
   int newInt = Character.toLowerCase(sbeve);
       // first step
       if (stepPart >= 0) {
