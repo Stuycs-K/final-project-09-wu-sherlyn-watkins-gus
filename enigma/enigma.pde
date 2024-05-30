@@ -100,10 +100,7 @@ void draw() {
     if (counter < liveInput.length()*stepNum) {
       int tempInt = (char)testStepCipherChar(liveInput.charAt(counter/stepNum),counter%stepNum);
       stepMod = (char)tempInt;
-      if (counter%stepNum == 0) {
-        modified = modified + stepMod;
-      }
-      text("Stepping input: "+modified+stepMod, 400,200);
+      text("Stepping input: "+modified.substring(0,counter/stepNum)+stepMod, 400,200);
     } else {
       text("Stepping input: "+modified+" (steps complete)", 400,200); 
     }
