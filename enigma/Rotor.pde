@@ -32,6 +32,8 @@ class Rotor {
   }
   
   public Boolean onNotch() {
+    println("idx: ", notchedletters.indexOf(letters.charAt(rotorpos)));
+    // broken (??)
     return notchedletters.indexOf(letters.charAt(rotorpos)) != -1;
   }
   

@@ -9,17 +9,8 @@ int counter = 0;
 String curMessage = "";
 String modified = "";
 boolean stepping = false;
-
-String plaintext = "MY FUNNY PLAINTEXT A B";
-
-String rotor1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-String rotor2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-String rotor3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-int rotor1initial, rotor2initial, rotor3initial = 0;
-int rotor1pos = rotor1initial;
-int rotor2pos = rotor2initial;
-int rotor3pos = rotor3initial;
+// physical layout: reflector 1 2 3
+Rotor rotor1, rotor2, rotor3;
 
 String reflector = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -29,9 +20,12 @@ void setup() {
   print("yo soy setup");
   size(1000,1000);
   cp5 = new ControlP5(this);
-  plugboard.put('A', 'B');
-  plugboard.put('B', 'A');
-  plugboard(plaintext);
+  // plugboard.put('A', 'B');
+  // plugboard.put('B', 'A');
+  rotor1 = new Rotor(1, 0, 0);
+  rotor2 = new Rotor(2, 0, 0);
+  rotor3 = new Rotor(3, 0, 0);
+  enigma('A');  
   PImage start_button = loadImage("togedepressed.png");
   PImage activate_button = loadImage("steg test.png");
      
@@ -148,62 +142,36 @@ String clean(String str) {
   return str.replaceAll("[^a-zA-Z0-9]", "");  
 }
 
-String plugboard(String ptext) {
-    //println("Plugboard");
-    //plugboard.forEach((k, v) -> {
-    //  println(k + ": " + v);
-    //});
-    StringBuilder str = new StringBuilder();
-    str.append(ptext);
-    for (int i = 0; i < plaintext.length(); i++) {
-      if (plugboard.containsKey(ptext.charAt(i))) {
-        str.setCharAt(i,plugboard.get(ptext.charAt(i)));
-      }
-    }
-    ptext = str.toString();
-    return ptext;
+Character plugboard(Character pchar) {
+    if (plugboard.get(pchar) != null) return plugboard.get(pchar);
+    return pchar;
 }
 
-String rotors(String ptext) {
-  StringBuilder str = new StringBuilder();
-  str.append(ptext);
-  for (int i = 0; i < plaintext.length(); i++) {
-    // currently being refactored to classes to better manage ring settings and all of that
-    rotor1pos = (rotor1pos + 1) % 26;
-    if (rotor1pos == 0) rotor2pos = (rotor2pos + 1) % 26;
-    if (rotor2pos == 0) rotor3pos = (rotor3pos + 1) % 26;
-    
-    // first rotor runthru 1->3
-    str.setCharAt(i, rotor1.charAt((str.charAt(i) - 65 + rotor1pos) % 26));
-    str.setCharAt(i, rotor2.charAt((str.charAt(i) - 65 + rotor2pos) % 26));
-    str.setCharAt(i, rotor3.charAt((str.charAt(i) - 65 + rotor3pos) % 26));
-    
-    // reflect
-    str.setCharAt(i, reflector.charAt((str.charAt(i) - 65) % 26));
-    
-    // and go back through 3->1
-    str.setCharAt(i, rotor3.charAt((str.charAt(i) - 65 + rotor3pos) % 26));
-    str.setCharAt(i, rotor2.charAt((str.charAt(i) - 65 + rotor2pos) % 26));
-    str.setCharAt(i, rotor1.charAt((str.charAt(i) - 65 + rotor1pos) % 26));
-  }
-  // physical layout: reflector 3 2 1
-  // run shift w rotor1
-  // if at certain pos, shift rotor2
-  // run shift with rotor2
-  // if at certain pos, shift rotor3
-  // run shift with rotor3
-  // reflect and do the same thing in other direction
-  // TODO: split into function w classes later w sig runRotor(Rotor rotor, Rotor nextrotor) with nextrotor sometimes being null (if on r3)
-  // reset rotor positions to settings for next encode
-  rotor1pos = rotor1initial;
-  rotor2pos = rotor2initial;
-  rotor3pos = rotor3initial;
-  return ptext;
+Character rotors(Character pchar) {
+   rotor3.rotate();
+   if (rotor3.onNotch()) {
+     rotor2.rotate();
+     if (rotor2.onNotch()) {
+       rotor1.rotate();
+     }
+   }
+   println("Rotors Position: ", (char)(rotor1.rotorpos + 65), (char)(rotor2.rotorpos + 65), (char)(rotor3.rotorpos + 65));
+  
+   pchar = rotor3.apply(pchar);
+   println("Wheel 3 Encryption: ", pchar);
+   pchar = rotor2.apply(pchar);
+   println("Wheel 2 Encryption: ", pchar);
+   pchar = rotor1.apply(pchar);
+   println("Wheel 1 Encryption: ", pchar);
+   // TODO: reflect
+   return pchar;
 }
 
-String enigma(String ptext) {
-  ptext = plugboard(ptext);
-  ptext = rotors(ptext);
-  ptext = plugboard(ptext);
-  return ptext;
+Character enigma(Character pchar) {
+  println("Keyboard Input: ", pchar);
+  pchar = plugboard(pchar);
+  println("Plugboard Encryption: ", pchar);
+  pchar = rotors(pchar);
+  pchar = plugboard(pchar);
+  return pchar;
 }
