@@ -18,6 +18,10 @@ Started implementing live text modifications
 
 Fixed live text modification bug
 
+### 5/29/24
+
+Started visual stepping
+
 ## GUS WATKINS
 
 ### 5/22/24
