@@ -32,9 +32,10 @@ class Rotor {
   }
   
   public Boolean onNotch() {
-    println("idx: ", notchedletters.indexOf(letters.charAt(rotorpos)));
+    return false;
+    // println("idx: ", notchedletters.indexOf(letters.charAt(rotorpos)));
     // broken (??)
-    return notchedletters.indexOf(letters.charAt(rotorpos)) != -1;
+    // return notchedletters.indexOf(letters.charAt(rotorpos)) != -1;
   }
   
   public void rotate() {
@@ -42,6 +43,6 @@ class Rotor {
   }
   
   public Character apply(Character c) {
-    return letters.charAt((c - 65 + rotorpos + ringpos) % 26);
+    return letters.charAt((c - 65 + rotorpos + ringpos) % 26 + 65);
   }
 }
