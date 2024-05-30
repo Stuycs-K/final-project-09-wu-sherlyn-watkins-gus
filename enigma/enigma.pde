@@ -98,7 +98,7 @@ void draw() {
   text("Click togedepressed.png to reset last input", 400, 100);
   String liveInput = cp5.get(Textfield.class,"input").getText();
   text("Input: " + liveInput, 400, 150);
-  modified = testCipher(liveInput);
+  modified = testStepCipher(liveInput);
   if (stepping) {
     if (counter < modified.length()) {
       text("Stepping input: "+modified.substring(0,counter), 400,200);
@@ -117,6 +117,25 @@ String testCipher(String sbeve) {
   String modInput = "";
   for (int i = 0; i < sbeve.length(); i++) {
     int newInt = Character.toLowerCase(sbeve.charAt(i))+13;
+    if (newInt > 122) {
+      newInt -= 26;
+    }
+    modInput = modInput + (char)newInt;
+  }
+  return modInput;
+}
+
+// temp two-step cipher: first the char goes through rot13, then the char goes through rot1
+String testStepCipher(String sbeve) {
+  String modInput = "";
+  for (int i = 0; i < sbeve.length(); i++) {
+    // first step
+    int newInt = Character.toLowerCase(sbeve.charAt(i))+13;
+    if (newInt > 122) {
+      newInt -= 26;
+    }
+    // second step
+    newInt = newInt+1;
     if (newInt > 122) {
       newInt -= 26;
     }
