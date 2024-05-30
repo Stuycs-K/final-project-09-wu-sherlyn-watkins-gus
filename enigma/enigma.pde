@@ -6,8 +6,11 @@ import java.util.Map;
 
 ControlP5 cp5;
 int counter = 0;
-String curMessage = "";
-String modified = "";
+String curMessage = ""; // tracks plaintext input
+String modified = ""; // tracks modified input
+char stepMod; // tracks stepping modified input
+int stepState = 0; // tracks what step it's on
+int stepNum = 2; // CHANGE THIS, tracks how many steps the cipher requires
 boolean stepping = false;
 
 String plaintext = "MY FUNNY PLAINTEXT A B";
@@ -80,6 +83,7 @@ public void step() {
 public void progress() {
   curMessage = "";
   modified = "";
+  stepMod = 0;
   counter = 0;
   stepping = false;
 }
@@ -98,14 +102,19 @@ void draw() {
   text("Click togedepressed.png to reset last input", 400, 100);
   String liveInput = cp5.get(Textfield.class,"input").getText();
   text("Input: " + liveInput, 400, 150);
-  modified = testStepCipher(liveInput);
   if (stepping) {
-    if (counter < modified.length()) {
-      text("Stepping input: "+modified.substring(0,counter), 400,200);
+    if (counter < liveInput.length()*stepNum) {
+      int tempInt = (char)testStepCipherChar(liveInput.charAt(counter/stepNum),counter%stepNum);
+      stepMod = (char)tempInt;
+      if (counter%stepNum == 0) {
+        modified = modified + stepMod;
+      }
+      text("Stepping input: "+modified+stepMod, 400,200);
     } else {
       text("Stepping input: "+modified+" (steps complete)", 400,200); 
     }
   } else {
+    modified = testStepCipher(liveInput,999);
     text("Stepping not activated", 400,200);
   }
   text("Modified: " + modified, 400,250);
@@ -125,23 +134,33 @@ String testCipher(String sbeve) {
   return modInput;
 }
 
-// temp two-step cipher: first the char goes through rot13, then the char goes through rot1
-String testStepCipher(String sbeve) {
+// temp two-step cipher: first the char goes through rot12, then the char goes through rot1
+String testStepCipher(String sbeve, int stepPart) {
   String modInput = "";
   for (int i = 0; i < sbeve.length(); i++) {
-    // first step
-    int newInt = Character.toLowerCase(sbeve.charAt(i))+13;
-    if (newInt > 122) {
-      newInt -= 26;
-    }
-    // second step
-    newInt = newInt+1;
-    if (newInt > 122) {
-      newInt -= 26;
-    }
-    modInput = modInput + (char)newInt;
+      int newInt = testStepCipherChar(sbeve.charAt(i),stepPart);
+      modInput = modInput + (char)newInt;
   }
   return modInput;
+}
+
+// temp char by char for the cipher: first the char goes through rot12, then the char goes through rot1
+int testStepCipherChar(char sbeve, int stepPart) {
+  int newInt = Character.toLowerCase(sbeve);
+      // first step
+      if (stepPart >= 0) {
+      newInt+=12;
+      if (newInt > 122) {
+        newInt -= 26;
+      }
+      } if (stepPart >= 1) {
+      // second step
+      newInt+=1;
+      if (newInt > 122) {
+        newInt -= 26;
+      }
+      }
+  return newInt;
 }
 
 String clean(String str) {
