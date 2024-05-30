@@ -22,6 +22,10 @@ Fixed live text modification bug
 
 Started visual stepping
 
+### 5/30/24
+
+Finished visually stepping through a cipher 
+
 ## GUS WATKINS
 
 ### 5/22/24
