@@ -10,7 +10,7 @@ String curMessage = ""; // tracks plaintext input
 String modified = ""; // tracks modified input
 char stepMod; // tracks stepping modified input
 int stepState = 0; // tracks what step it's on
-int stepNum = 2; // CHANGE THIS, tracks how many steps the cipher requires
+int stepNum = 3; // CHANGE THIS, tracks how many steps the cipher requires
 boolean stepping = false;
 // physical layout: reflector 1 2 3
 Rotor rotor1, rotor2, rotor3;
@@ -98,7 +98,7 @@ void draw() {
   text("Input: " + liveInput, 400, 150);
   if (stepping) {
     if (counter < liveInput.length()*stepNum) {
-      int tempInt = (char)testStepCipherChar(liveInput.charAt(counter/stepNum),counter%stepNum);
+      int tempInt = (char)enigmaTemp(liveInput.charAt(counter/stepNum),counter%stepNum);
       stepMod = (char)tempInt;
       text("Stepping input: "+modified.substring(0,counter/stepNum)+stepMod, 400,200);
       text("Step: "+(counter%stepNum+1), 400, 350);
@@ -106,7 +106,7 @@ void draw() {
       text("Stepping input: "+modified+" (steps complete)", 400,200); 
     }
   } else {
-    modified = testStepCipher(liveInput,999);
+    modified = enigmaCipher(liveInput,999);
     text("Stepping not activated", 400,200);
   }
   text("Modified: " + modified, 400,250);
@@ -157,6 +157,34 @@ int testStepCipherChar(char sbeve, int stepPart) {
       }
       }
   return newInt;
+}
+
+
+// temporary enigma cipher for testing
+String enigmaCipher(String sbeve, int stepPart) {
+  String modInput = "";
+  println("am inside");
+  for (int i = 0; i < sbeve.length(); i++) {
+      int newInt = enigmaTemp(sbeve.charAt(i),stepPart);
+      modInput = modInput + (char)newInt;
+  }
+  return modInput;
+}
+
+// temp cipher 2: electric boogaloo
+int enigmaTemp(Character pchar, int stepPart) {
+  // immediately returns newInt if it's not a letter
+  if (!Character.isLetter(pchar)) {
+    return pchar;
+  }
+  if (stepPart >= 0) {
+  pchar = plugboard(pchar);
+  } if (stepPart >= 1) {
+  pchar = rotors(pchar);
+  } if (stepPart >= 2) {
+  pchar = plugboard(pchar);
+  }
+  return pchar;
 }
 
 String clean(String str) {
