@@ -10,7 +10,7 @@ String curMessage = ""; // tracks plaintext input
 String modified = ""; // tracks modified input
 char stepMod; // tracks stepping modified input
 int stepState = 0; // tracks what step it's on
-int stepNum = 3; // CHANGE THIS, tracks how many steps the cipher requires
+int stepNum = 2; // CHANGE THIS, tracks how many steps the cipher requires
 boolean stepping = false;
 // physical layout: reflector 1 2 3
 Rotor rotor1, rotor2, rotor3;
@@ -25,28 +25,28 @@ void setup() {
   cp5 = new ControlP5(this);
   // plugboard.put('A', 'B');
   // plugboard.put('B', 'A');
-  rotor1 = new Rotor(1, 0, 0);
+  /**rotor1 = new Rotor(1, 0, 0);
   rotor2 = new Rotor(2, 0, 0);
-  rotor3 = new Rotor(3, 0, 0);
-  enigma('A');  
+  rotor3 = new Rotor(3, 0, 0);**/
+  //enigma('A');  
   PImage start_button = loadImage("togedepressed.png");
-  PImage activate_button = loadImage("steg test.png");
+  
      
   cp5.addButton("activate")
      .setValue(0)
-     .setPosition(200,400)
+     .setPosition(100,150)
      //.setImage(activate_button)
      .setSize(300,50)
      ;
      
   cp5.addButton("step")
      .setValue(0)
-     .setPosition(200,450)
+     .setPosition(100,200)
      .setSize(300,50)
      ;
      
   cp5.addTextfield("input")
-     .setPosition(20,100)
+     .setPosition(100,100)
      .setSize(200,40)
      .setFocus(true)
      .setColor(color(255,0,0))
@@ -54,7 +54,7 @@ void setup() {
      
   cp5.addButton("progress")
      .setValue(0)
-     .setPosition(600,400)
+     .setPosition(300,100)
      .setImage(start_button)
      .setSize(300,50)
      ;
@@ -87,30 +87,33 @@ public void input(String text) {
 }
 
 void draw() {
-  //println("je suis draw");
   background(color(0));
   noStroke();
+  PImage UIdes = loadImage("enigma.png"); 
+  image(UIdes, 0, 0);
   
   textSize(25);
-  text("Clear textbox before stepping through another input!", 400, 50);
-  text("Click togedepressed.png to reset last input", 400, 100);
+  text("Clear textbox before stepping through another input!", 400, 675);
+  text("Click togedepressed.png to reset last input", 400, 725);
   String liveInput = cp5.get(Textfield.class,"input").getText();
-  text("Input: " + liveInput, 400, 150);
+  text("Input: " + liveInput, 400, 775);
   if (stepping) {
     if (counter < liveInput.length()*stepNum) {
-      int tempInt = (char)enigmaTemp(liveInput.charAt(counter/stepNum),counter%stepNum);
+      //int tempInt = (char)enigmaTemp(liveInput.charAt(counter/stepNum),counter%stepNum);
+      int tempInt = (char)testStepCipherChar(liveInput.charAt(counter/stepNum),counter%stepNum);
       stepMod = (char)tempInt;
-      text("Stepping input: "+modified.substring(0,counter/stepNum)+stepMod, 400,200);
-      text("Step: "+(counter%stepNum+1), 400, 350);
+      text("Stepping input: "+modified.substring(0,counter/stepNum)+stepMod, 400,825);
+      text("Step: "+(counter%stepNum+1), 400, 875);
     } else {
-      text("Stepping input: "+modified+" (steps complete)", 400,200); 
+      text("Stepping input: "+modified+" (steps complete)", 400,825); 
     }
   } else {
-    modified = enigmaCipher(liveInput,999);
-    text("Stepping not activated", 400,200);
+    //modified = enigmaCipher(liveInput,999);
+    modified = testStepCipher(liveInput,999);
+    text("Stepping not activated", 400,825);
   }
-  text("Modified: " + modified, 400,250);
-  text("Stepping status: " + stepping, 400, 300);
+  text("Modified: " + modified, 400,925);
+  text("Stepping status: " + stepping, 400, 975);
 }
 
 // temp rot13 cipher for testing
