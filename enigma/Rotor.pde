@@ -5,12 +5,16 @@ class Rotor {
   public int rotorpos;
   public int ringpos;
   
-  public Rotor(String letters, int rotorpos, int ringpos) {
+  public Rotor(String letters, String notches, int rotorpos, int ringpos) {
     this.letters = letters;
     this.rotorpos = rotorpos;
     this.ringpos = ringpos;
+    this.notchedletters = notches;
   }
   public Rotor(int rotornum, int rotorpos, int ringpos) {
+    println("rotornum", rotornum);
+    this.rotorpos = rotorpos;
+    this.ringpos = ringpos;
     switch (rotornum) {
       case 1:
         letters = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
@@ -27,15 +31,15 @@ class Rotor {
       case 5:
         letters = "VZBRGITYUPSDNHLXAWMJQOFECK";
         notchedletters = "Z";
+      default:
+        throw new IndexOutOfBoundsException("Invalid rotor number!");
       // todo: other special rotors (notchedletters >1 etc)
     }
+    
   }
   
   public Boolean onNotch() {
-    return false;
-    // println("idx: ", notchedletters.indexOf(letters.charAt(rotorpos)));
-    // broken (??)
-    // return notchedletters.indexOf(letters.charAt(rotorpos)) != -1;
+    return notchedletters.indexOf(letters.charAt(rotorpos)) != -1;
   }
   
   public void rotate() {
@@ -43,6 +47,8 @@ class Rotor {
   }
   
   public Character apply(Character c) {
-    return letters.charAt((c - 65 + rotorpos + ringpos) % 26 + 65);
+    println("Applying rotor with char ", c, (int)c, " and rotorpos ", rotorpos);
+    println(letters);
+    return letters.charAt((c - 65 + rotorpos + ringpos) % 26);
   }
 }
