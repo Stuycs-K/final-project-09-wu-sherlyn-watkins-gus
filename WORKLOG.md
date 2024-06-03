@@ -26,6 +26,14 @@ Started visual stepping
 
 Finished visually stepping through a cipher 
 
+### 5/31/24
+
+Started rotor visual implementation
+
+### 6/3/24
+
+Progressed rotor visual implementation, added stepping support
+
 ## GUS WATKINS
 
 ### 5/22/24
