@@ -21,20 +21,25 @@ class Rotor {
       case 1:
         letters = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
         notchedletters = "Q";
+        break;
       case 2:
         letters = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
         notchedletters = "E";
+        break;
       case 3:
         letters = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
         notchedletters = "V";
+        break;
       case 4:
         letters = "ESOVPZJAYQUIRHXLNFTGKDCMWB";
         notchedletters = "J";
+        break;
       case 5:
         letters = "VZBRGITYUPSDNHLXAWMJQOFECK";
         notchedletters = "Z";
+        break;
       default:
-        //throw new IndexOutOfBoundsException("Invalid rotor number!");
+        throw new IndexOutOfBoundsException("Invalid rotor number!");
       // todo: other special rotors (notchedletters >1 etc)
     }
     
@@ -54,6 +59,7 @@ class Rotor {
   }
   
   public Character apply(Character c) {
+    char let = letters.charAt((c - 65 + rotorpos) % 26);
     println("Applying rotor with char ", c, (int)c, " and rotorpos ", rotorpos);
     println(letters);
     return letters.charAt((c - 65 + rotorpos + ringpos) % 26);
