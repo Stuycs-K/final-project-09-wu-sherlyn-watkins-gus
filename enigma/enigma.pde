@@ -11,6 +11,7 @@ String modified = ""; // tracks modified input
 char stepMod; // tracks stepping modified input
 int stepState = 0; // tracks what step it's on
 int stepNum = 2; // CHANGE THIS, tracks how many steps the cipher requires
+String prevInput = ""; // previous input to prevent multiple calls
 boolean stepping = false;
 // physical layout: reflector 1 2 3
 Rotor rotor1, rotor2, rotor3;
@@ -95,12 +96,12 @@ void draw() {
   textSize(25);
   text("Clear textbox before stepping through another input!", 400, 675);
   text("Click togedepressed.png to reset last input", 400, 725);
-  String liveInput = cp5.get(Textfield.class,"input").getText();
-  text("Input: " + liveInput, 400, 775);
+  //String curMessage = cp5.get(Textfield.class,"input").getText();
+  text("Input: " + curMessage, 400, 775);
   if (stepping) {
-    if (counter < liveInput.length()*stepNum) {
-      //int tempInt = (char)enigmaTemp(liveInput.charAt(counter/stepNum),counter%stepNum);
-      int tempInt = (char)testStepCipherChar(liveInput.charAt(counter/stepNum),counter%stepNum);
+    if (counter < curMessage.length()*stepNum) {
+      int tempInt = (char)enigmaTemp(curMessage.charAt(counter/stepNum),counter%stepNum);
+      //int tempInt = (char)testStepCipherChar(curMessage.charAt(counter/stepNum),counter%stepNum);
       stepMod = (char)tempInt;
       text("Stepping input: "+modified.substring(0,counter/stepNum)+stepMod, 400,825);
       text("Step: "+(counter%stepNum+1), 400, 875);
@@ -108,15 +109,28 @@ void draw() {
       text("Stepping input: "+modified+" (steps complete)", 400,825); 
     }
   } else {
-    //modified = enigmaCipher(liveInput,999);
-    modified = testStepCipher(liveInput,999);
+    if (prevInput.compareTo(curMessage) != 0) {
+      modified = enigmaCipher(curMessage,999);
+    //modified = testStepCipher(liveInput,999);
+      prevInput = curMessage;
+    }
     text("Stepping not activated", 400,825);
   }
   text("Modified: " + modified, 400,925);
   text("Stepping status: " + stepping, 400, 975);
-  text("Rotor 1: " + rotor1.letters(), 200,420);
+  text("Rotor 3: " + rotor1.letters(), 200,420);
   text("Rotor 2: " + rotor2.letters(), 200,520);
-  text("Rotor 3: " + rotor3.letters(), 200,620);
+  text("Rotor 1: " + rotor3.letters(), 200,620);
+}
+
+void controlEvent(ControlEvent theEvent) {
+  if(theEvent.isAssignableFrom(Textfield.class)) {
+    println("controlEvent: accessing a string from controller '"
+            +theEvent.getName()+"': "
+            +theEvent.getStringValue()
+            );
+    curMessage = theEvent.getStringValue();
+  }
 }
 
 // temp rot13 cipher for testing
