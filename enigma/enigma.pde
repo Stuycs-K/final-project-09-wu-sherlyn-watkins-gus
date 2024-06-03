@@ -70,6 +70,7 @@ public void activate() {
 // go step by step
 public void step() {
   if (stepping) {
+    //println("step increase");
     counter++;
   }
 }
@@ -94,7 +95,7 @@ void draw() {
   image(UIdes, 0, 0);
   
   textSize(25);
-  text("Clear textbox before stepping through another input!", 400, 675);
+  text("Type a message to encrypt and press enter to confirm", 400, 675);
   text("Click togedepressed.png to reset last input", 400, 725);
   //String curMessage = cp5.get(Textfield.class,"input").getText();
   text("Input: " + curMessage, 400, 775);
@@ -111,7 +112,7 @@ void draw() {
   } else {
     if (prevInput.compareTo(curMessage) != 0) {
       modified = enigmaCipher(curMessage,999);
-    //modified = testStepCipher(liveInput,999);
+      //modified = testStepCipher(curMessage,999);
       prevInput = curMessage;
     }
     text("Stepping not activated", 400,825);
