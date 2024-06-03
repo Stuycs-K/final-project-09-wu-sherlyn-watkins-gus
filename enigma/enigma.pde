@@ -240,6 +240,7 @@ Character rotors(Character pchar) {
    println("Wheel 1 Encryption: ", pchar);
    String ukwb = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
    pchar = ukwb.charAt(pchar - 65);
+   println("Reflector: ", pchar);
    rotor1.apply(pchar);
    println("Wheel 1 Encryption: ", pchar);
    pchar = rotor2.apply(pchar);
