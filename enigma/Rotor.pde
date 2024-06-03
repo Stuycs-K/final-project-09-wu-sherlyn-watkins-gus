@@ -60,8 +60,7 @@ class Rotor {
   
   public Character apply(Character c) {
     char let = letters.charAt((c - 65 + rotorpos) % 26);
-    println("Applying rotor with char ", c, (int)c, " and rotorpos ", rotorpos);
-    println(letters);
-    return letters.charAt((c - 65 + rotorpos + ringpos) % 26);
+    int encrypted = (((int)let - 65) - rotorpos + 26) % 26 + 65;
+    return (char) encrypted;
   }
 }

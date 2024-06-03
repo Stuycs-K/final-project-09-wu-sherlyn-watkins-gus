@@ -234,6 +234,12 @@ Character rotors(Character pchar) {
    pchar = rotor1.apply(pchar);
    println("Wheel 1 Encryption: ", pchar);
    // TODO: reflect
+   rotor1.apply(pchar);
+   println("Wheel 1 Encryption: ", pchar);
+   pchar = rotor2.apply(pchar);
+   println("Wheel 2 Encryption: ", pchar);
+   pchar = rotor3.apply(pchar);
+   println("Wheel 3 Encryption: ", pchar);
    return pchar;
 }
 
