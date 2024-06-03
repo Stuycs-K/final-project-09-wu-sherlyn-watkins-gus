@@ -12,6 +12,7 @@ char stepMod; // tracks stepping modified input
 int stepState = 0; // tracks what step it's on
 int stepNum = 2; // CHANGE THIS, tracks how many steps the cipher requires
 String prevInput = ""; // previous input to prevent multiple calls
+int prevCounter = -1; // previous counter to prevent multiple calls
 boolean stepping = false;
 // physical layout: reflector 1 2 3
 Rotor rotor1, rotor2, rotor3;
@@ -101,9 +102,13 @@ void draw() {
   text("Input: " + curMessage, 400, 775);
   if (stepping) {
     if (counter < curMessage.length()*stepNum) {
+      //println("prevCounter: " + prevCounter + " counter: " + counter);
+      if (prevCounter != counter) {
       int tempInt = (char)enigmaTemp(curMessage.charAt(counter/stepNum),counter%stepNum);
       //int tempInt = (char)testStepCipherChar(curMessage.charAt(counter/stepNum),counter%stepNum);
       stepMod = (char)tempInt;
+      prevCounter = counter;
+      }
       text("Stepping input: "+modified.substring(0,counter/stepNum)+stepMod, 400,825);
       text("Step: "+(counter%stepNum+1), 400, 875);
     } else {
