@@ -50,5 +50,8 @@ Moved the rotor implementation to a class, began figuring out organization to ma
 
 ### 5/30/24
 
-
 Hooked up the plugboard function and rotor class to the main project file, began debugging+fixing the implementation
+
+### 5/31/24
+
+Fixed the rotor constructor switch statement, continued debugging the apply function
