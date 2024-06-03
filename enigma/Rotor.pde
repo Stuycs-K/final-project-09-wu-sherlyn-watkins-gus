@@ -3,11 +3,13 @@ class Rotor {
   public String letters;
   public String notchedletters;
   public int rotorpos;
+  public int origrotorpos;
   public int ringpos;
   
   public Rotor(String letters, String notches, int rotorpos, int ringpos) {
     this.letters = letters;
     this.rotorpos = rotorpos;
+    this.origrotorpos = rotorpos;
     this.ringpos = ringpos;
     this.notchedletters = notches;
   }
