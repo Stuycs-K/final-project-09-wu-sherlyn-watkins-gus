@@ -25,9 +25,9 @@ void setup() {
   cp5 = new ControlP5(this);
   // plugboard.put('A', 'B');
   // plugboard.put('B', 'A');
-  /**rotor1 = new Rotor(1, 0, 0);
+  rotor1 = new Rotor(1, 0, 0);
   rotor2 = new Rotor(2, 0, 0);
-  rotor3 = new Rotor(3, 0, 0);**/
+  rotor3 = new Rotor(3, 0, 0);
   //enigma('A');  
   PImage start_button = loadImage("togedepressed.png");
   
@@ -114,6 +114,9 @@ void draw() {
   }
   text("Modified: " + modified, 400,925);
   text("Stepping status: " + stepping, 400, 975);
+  text("Rotor 1: " + rotor1.letters(), 200,420);
+  text("Rotor 2: " + rotor2.letters(), 200,520);
+  text("Rotor 3: " + rotor3.letters(), 200,620);
 }
 
 // temp rot13 cipher for testing

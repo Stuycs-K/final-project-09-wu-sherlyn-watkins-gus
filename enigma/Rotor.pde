@@ -32,10 +32,15 @@ class Rotor {
         letters = "VZBRGITYUPSDNHLXAWMJQOFECK";
         notchedletters = "Z";
       default:
-        throw new IndexOutOfBoundsException("Invalid rotor number!");
+        //throw new IndexOutOfBoundsException("Invalid rotor number!");
       // todo: other special rotors (notchedletters >1 etc)
     }
     
+  }
+  
+  // accessor method
+  public String letters() {
+    return this.letters;
   }
   
   public Boolean onNotch() {
