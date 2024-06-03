@@ -63,3 +63,7 @@ Hooked up the plugboard function and rotor class to the main project file, began
 ### 5/31/24
 
 Fixed the rotor constructor switch statement, continued debugging the apply function
+
+### 6/3/24
+
+Fixed the rotor apply function (and checked it against another implementation), began debugging reflector/second pass implementation

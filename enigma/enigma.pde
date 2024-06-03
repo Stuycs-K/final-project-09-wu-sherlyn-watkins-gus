@@ -238,7 +238,8 @@ Character rotors(Character pchar) {
    println("Wheel 2 Encryption: ", pchar);
    pchar = rotor1.apply(pchar);
    println("Wheel 1 Encryption: ", pchar);
-   // TODO: reflect
+   String ukwb = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
+   pchar = ukwb.charAt(pchar - 65);
    rotor1.apply(pchar);
    println("Wheel 1 Encryption: ", pchar);
    pchar = rotor2.apply(pchar);
