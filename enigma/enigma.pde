@@ -14,12 +14,13 @@ int stepNum = 2; // CHANGE THIS, tracks how many steps the cipher requires
 String prevInput = ""; // previous input to prevent multiple calls
 int prevCounter = -1; // previous counter to prevent multiple calls
 boolean stepping = false;
+
+// cipher parts
 // physical layout: reflector 1 2 3
 Rotor rotor1, rotor2, rotor3;
 Rotor[] rotors = {rotor3,rotor2,rotor1};
-
-String reflector = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+String ukwb = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
+String reflector = ukwb;
 Map<Character, Character> plugboard = new Hashtable<>();
 
 void setup() {
@@ -96,10 +97,27 @@ void draw() {
   noStroke();
   PImage UIdes = loadImage("enigma.png"); 
   image(UIdes, 0, 0);
-  
   textSize(25);
   text("Type a message to encrypt and press enter to confirm", 400, 675);
   text("Click togedepressed.png to reset last input", 400, 725);
+  
+  // text("test", 600, 90);
+  //plugboard.put('A', 'B');
+  //plugboard.put('B', 'A');
+  //plugboard.put('Z', 'C');
+  //plugboard.put('C', 'Z');
+  // assuming plugboard connections are always 2-way, and that entries are next to each other
+  int plugboardloc = 0;
+  for (Map.Entry<Character, Character> entry : plugboard.entrySet()) {
+    println("in", plugboardloc);
+    if (plugboardloc % 2 != 0) {
+      plugboardloc++;
+      continue;
+    };
+    text(entry.getKey() + "<->" + entry.getValue(), 600, 70 + 10 * plugboardloc);
+    plugboardloc++;
+  }
+  
   //String curMessage = cp5.get(Textfield.class,"input").getText();
   text("Input: " + curMessage, 400, 775);
   if (stepping) {
@@ -273,7 +291,7 @@ Character rotors(Character pchar) {
    pchar = rotor1.forward(pchar);
    println("Wheel 1 Encryption: ", pchar);
    String ukwb = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
-   pchar = ukwb.charAt(pchar - 65);
+   pchar = reflector.charAt(pchar - 65);
    println("Reflector: ", pchar);
       
    pchar = rotor1.backward(pchar);
