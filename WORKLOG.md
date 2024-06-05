@@ -71,3 +71,7 @@ Fixed the rotor constructor switch statement, continued debugging the apply func
 ### 6/3/24
 
 Fixed the rotor apply function (and checked it against another implementation), began debugging reflector/second pass implementation
+
+### 6/5/24
+
+Finished the cipher implementation, added a basic plugboard display, began planning out what tasks still need to be done
