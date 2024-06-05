@@ -154,21 +154,21 @@ void draw() {
   String[] rotorVisuals = rotorSplitter(rotor3);
   text("Rotor 3: ",200,420 + 100*0);
   if (modified.length() > 0) {
-    rotorPrinter(rotorVisuals,420);
+    rotorPrinter(rotorVisuals,420,modified.charAt(modified.length()-1));
   } else {
     text("Rotor 3: " + rotor3.letters(), 200,420);
   }
   rotorVisuals = rotorSplitter(rotor2);
   text("Rotor 2: ",200,520);
   if (modified.length() > 0) {
-    rotorPrinter(rotorVisuals,520);
+    rotorPrinter(rotorVisuals,520,modified.charAt(modified.length()-1));
   } else {
     text("Rotor 2: " + rotor2.letters(), 200,520);
   }
   rotorVisuals = rotorSplitter(rotor1);
   text("Rotor 1: ",200,620);
   if (modified.length() > 0) {
-    rotorPrinter(rotorVisuals,620);
+    rotorPrinter(rotorVisuals,620,modified.charAt(modified.length()-1));
   } else {
     text("Rotor 1: " + rotor1.letters(), 200,620);
   }

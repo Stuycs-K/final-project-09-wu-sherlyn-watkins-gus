@@ -25,11 +25,11 @@ String[] rotorSplitter(Rotor rotor) {
 }
 
 // prints a rotor with greentext
-void rotorPrinter(String[] rotorVisuals, int text_height) {
+void rotorPrinter(String[] rotorVisuals, int text_height, char curChar) {
   int counter = 0;
   print("printter: ");
     while (counter < rotorVisuals[0].length()) {
-      print(rotorVisuals[0].charAt(counter));
+      print(Character.toString((rotorVisuals[0].charAt(counter) + curChar -65)));
       text(rotorVisuals[0].charAt(counter),300+(20*counter),text_height); //default text_height: 420
       counter++;
     }
