@@ -50,6 +50,11 @@ class Rotor {
     return this.letters;
   }
   
+  // accessor method
+  public int curLetterPos() {
+    return rotorpos;
+  }
+  
   public Boolean onNotch() {
     return notchedletters.indexOf(letters.charAt(rotorpos)) != -1;
   }

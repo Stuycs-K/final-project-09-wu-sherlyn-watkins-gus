@@ -30,6 +30,7 @@ void setup() {
   rotor1 = new Rotor(1, 0, 0);
   rotor2 = new Rotor(2, 0, 0);
   rotor3 = new Rotor(3, 0, 0);
+  Rotor[] rotors = {rotor3,rotor2,rotor1};
   //enigma('A');  
   PImage start_button = loadImage("togedepressed.png");
   
@@ -124,9 +125,29 @@ void draw() {
   }
   text("Modified: " + modified, 400,925);
   text("Stepping status: " + stepping, 400, 975);
-  text("Rotor 3: " + rotor1.letters(), 200,420);
+  String[] rotorVisuals = rotorSplitter(rotor3);
+  text("Rotor 3: " + rotor3.letters(), 200,420);
+  if (rotorVisuals[0] == null) {
+    text("Rotor 3: " + rotor3.letters(), 200,420);
+  } else {
+    fill(0,255,0);
+    text(rotorVisuals[0] + rotorVisuals[1] + rotorVisuals[2], 200, 470);
+    fill(255,255,255);
+  }
   text("Rotor 2: " + rotor2.letters(), 200,520);
-  text("Rotor 1: " + rotor3.letters(), 200,620);
+  text("Rotor 1: " + rotor1.letters(), 200,620);
+}
+
+// splits rotor for easy printing
+String[] rotorSplitter(Rotor rotor) {
+  String rotorLetters = rotor.letters();
+  int curLetterPos = rotor.curLetterPos();
+  //println("CURLETTERPOS: " + curLetterPos);
+  String[] rotorParts = new String[3];
+    rotorParts[0] = rotorLetters.substring(0,curLetterPos);
+    rotorParts[1] = Character.toString(rotorLetters.charAt(curLetterPos));
+    rotorParts[2] = rotorLetters.substring(curLetterPos+1);
+  return rotorParts;
 }
 
 void controlEvent(ControlEvent theEvent) {
