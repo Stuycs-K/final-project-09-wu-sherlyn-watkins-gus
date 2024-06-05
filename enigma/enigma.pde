@@ -10,7 +10,7 @@ String curMessage = ""; // tracks plaintext input
 String modified = ""; // tracks modified input
 char stepMod; // tracks stepping modified input
 int stepState = 0; // tracks what step it's on
-int stepNum = 2; // CHANGE THIS, tracks how many steps the cipher requires
+int stepNum = 3; // CHANGE THIS, tracks how many steps the cipher requires
 String prevInput = ""; // previous input to prevent multiple calls
 int prevCounter = -1; // previous counter to prevent multiple calls
 boolean stepping = false;
@@ -136,24 +136,24 @@ void draw() {
   String[] rotorVisuals = rotorSplitter(rotor3);
   text("Rotor 3: ",200,420 + 100*0);
   if (modified.length() > 0) {
-    int counter = 0;
-    while (counter < rotorVisuals[0].length()) {
-      text(rotorVisuals[0].charAt(counter),300+(20*counter),420);
-      counter++;
-    }
-    fill(0,255,0);
-    text(rotorVisuals[1],300+(20*counter),420);
-    counter++;
-    fill(255,255,255);
-    while (counter < rotorVisuals[2].length()) {
-      text(rotorVisuals[2].charAt(counter),300+(20*counter),420);
-      counter++;
-    }
+    rotorPrinter(rotorVisuals,420);
   } else {
     text("Rotor 3: " + rotor3.letters(), 200,420);
   }
-  text("Rotor 2: " + rotor2.letters(), 200,520);
-  text("Rotor 1: " + rotor1.letters(), 200,620);
+  rotorVisuals = rotorSplitter(rotor2);
+  text("Rotor 2: ",200,520);
+  if (modified.length() > 0) {
+    rotorPrinter(rotorVisuals,520);
+  } else {
+    text("Rotor 2: " + rotor2.letters(), 200,520);
+  }
+  rotorVisuals = rotorSplitter(rotor1);
+  text("Rotor 1: ",200,620);
+  if (modified.length() > 0) {
+    rotorPrinter(rotorVisuals,620);
+  } else {
+    text("Rotor 1: " + rotor1.letters(), 200,620);
+  }
 }
 
 String clean(String str) {

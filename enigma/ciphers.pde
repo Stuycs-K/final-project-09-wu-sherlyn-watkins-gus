@@ -1,25 +1,3 @@
-// splits rotor for easy printing
-String[] rotorSplitter(Rotor rotor) {
-  String rotorLetters = rotor.letters();
-  int curLetterPos = rotor.curLetterPos();
-  //println("CURLETTERPOS: " + curLetterPos);
-  String[] rotorParts = new String[3];
-    rotorParts[0] = rotorLetters.substring(0,curLetterPos);
-    rotorParts[1] = Character.toString(rotorLetters.charAt(curLetterPos));
-    rotorParts[2] = rotorLetters.substring(curLetterPos+1);
-  return rotorParts;
-}
-
-void controlEvent(ControlEvent theEvent) {
-  if(theEvent.isAssignableFrom(Textfield.class)) {
-    println("controlEvent: accessing a string from controller '"
-            +theEvent.getName()+"': "
-            +theEvent.getStringValue()
-            );
-    curMessage = theEvent.getStringValue();
-  }
-}
-
 // temp rot13 cipher for testing
 String testCipher(String sbeve) {
   String modInput = "";
