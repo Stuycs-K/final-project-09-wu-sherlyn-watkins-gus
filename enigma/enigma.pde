@@ -16,6 +16,7 @@ int prevCounter = -1; // previous counter to prevent multiple calls
 boolean stepping = false;
 // physical layout: reflector 1 2 3
 Rotor rotor1, rotor2, rotor3;
+Rotor[] rotors = {rotor3,rotor2,rotor1};
 
 String reflector = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -30,6 +31,7 @@ void setup() {
   rotor1 = new Rotor(1, 0, 0);
   rotor2 = new Rotor(2, 0, 0);
   rotor3 = new Rotor(3, 0, 0);
+  
   //enigma('A');  
   PImage start_button = loadImage("togedepressed.png");
   
@@ -124,9 +126,41 @@ void draw() {
   }
   text("Modified: " + modified, 400,925);
   text("Stepping status: " + stepping, 400, 975);
-  text("Rotor 3: " + rotor1.letters(), 200,420);
+  
+  // prints rotors
+  String[] rotorVisuals = rotorSplitter(rotor3);
+  text("Rotor 3: ",200,420 + 100*0);
+  if (modified.length() > 0) {
+    int counter = 0;
+    while (counter < rotorVisuals[0].length()) {
+      text(rotorVisuals[0].charAt(counter),300+(20*counter),420);
+      counter++;
+    }
+    fill(0,255,0);
+    text(rotorVisuals[1],300+(20*counter),420);
+    counter++;
+    fill(255,255,255);
+    while (counter < rotorVisuals[2].length()) {
+      text(rotorVisuals[2].charAt(counter),300+(20*counter),420);
+      counter++;
+    }
+  } else {
+    text("Rotor 3: " + rotor3.letters(), 200,420);
+  }
   text("Rotor 2: " + rotor2.letters(), 200,520);
-  text("Rotor 1: " + rotor3.letters(), 200,620);
+  text("Rotor 1: " + rotor1.letters(), 200,620);
+}
+
+// splits rotor for easy printing
+String[] rotorSplitter(Rotor rotor) {
+  String rotorLetters = rotor.letters();
+  int curLetterPos = rotor.curLetterPos();
+  //println("CURLETTERPOS: " + curLetterPos);
+  String[] rotorParts = new String[3];
+    rotorParts[0] = rotorLetters.substring(0,curLetterPos);
+    rotorParts[1] = Character.toString(rotorLetters.charAt(curLetterPos));
+    rotorParts[2] = rotorLetters.substring(curLetterPos+1);
+  return rotorParts;
 }
 
 void controlEvent(ControlEvent theEvent) {

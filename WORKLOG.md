@@ -34,6 +34,10 @@ Started rotor visual implementation
 
 Progressed rotor visual implementation, added stepping support
 
+### 6/4/24
+
+Started representing rotorpos
+
 ## GUS WATKINS
 
 ### 5/22/24
