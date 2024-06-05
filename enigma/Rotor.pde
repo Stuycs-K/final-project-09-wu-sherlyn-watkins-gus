@@ -58,9 +58,13 @@ class Rotor {
     rotorpos = (rotorpos + 1) % 26;
   }
   
-  public Character apply(Character c) {
+  public Character forward(Character c) {
     char let = letters.charAt((c - 65 + rotorpos) % 26);
     int encrypted = (((int)let - 65) - rotorpos + 26) % 26 + 65;
     return (char) encrypted;
+  }
+  
+  public Character backward(Character c) {
+    
   }
 }

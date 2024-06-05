@@ -232,20 +232,21 @@ Character rotors(Character pchar) {
    }
    println("Rotors Position: ", (char)(rotor1.rotorpos + 65), (char)(rotor2.rotorpos + 65), (char)(rotor3.rotorpos + 65));
   
-   pchar = rotor3.apply(pchar);
+   pchar = rotor3.forward(pchar);
    println("Wheel 3 Encryption: ", pchar);
-   pchar = rotor2.apply(pchar);
+   pchar = rotor2.forward(pchar);
    println("Wheel 2 Encryption: ", pchar);
-   pchar = rotor1.apply(pchar);
+   pchar = rotor1.forward(pchar);
    println("Wheel 1 Encryption: ", pchar);
    String ukwb = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
    pchar = ukwb.charAt(pchar - 65);
    println("Reflector: ", pchar);
-   rotor1.apply(pchar);
+      
+   pchar = rotor1.backward(pchar);
    println("Wheel 1 Encryption: ", pchar);
-   pchar = rotor2.apply(pchar);
+   pchar = rotor2.backward(pchar);
    println("Wheel 2 Encryption: ", pchar);
-   pchar = rotor3.apply(pchar);
+   pchar = rotor3.backward(pchar);
    println("Wheel 3 Encryption: ", pchar);
    return pchar;
 }
