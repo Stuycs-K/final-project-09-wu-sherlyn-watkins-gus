@@ -70,6 +70,8 @@ class Rotor {
   }
   
   public Character backward(Character c) {
-    
+    int let = (c - 65 + rotorpos) % 26;
+    int pos = letters.indexOf((char)(let + 65));
+    return (char)((pos - rotorpos + 26) % 26 + 65);
   }
 }
