@@ -13,14 +13,11 @@ String[] rotorSplitter(Rotor rotor) {
   String rotorLetters = rotor.letters();
   int curLetterPos = rotor.curLetterPos();
   //println("CURLETTERPOS: " + curLetterPos);
-  String[] rotorParts = new String[3];
-    print("notntter: ");
+  String[] rotorParts = new String[3];    
     rotorParts[0] = rotorLetters.substring(0,curLetterPos);
-    print(rotorParts[0]);
     rotorParts[1] = Character.toString(rotorLetters.charAt(curLetterPos));
-    print(rotorParts[1]);
     rotorParts[2] = rotorLetters.substring(curLetterPos+1);
-    println(rotorParts[2]);
+    println("notntter: " + rotorParts[0] + rotorParts[1] + rotorParts[2]);
   return rotorParts;
 }
 
@@ -44,4 +41,5 @@ void rotorPrinter(String[] rotorVisuals, int text_height, char curChar) {
       counter++;
     }
     println();
+    println("sum of rotorVisual arrays: " + (int) (rotorVisuals[0].length()+1+rotorVisuals[2].length()));
 }
