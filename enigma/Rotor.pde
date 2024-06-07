@@ -63,6 +63,10 @@ class Rotor {
     rotorpos = (rotorpos + 1) % 26;
   }
   
+  public void back_rotate() {
+    rotorpos = (rotorpos - 1) % 26;
+  }
+  
   public void reset() {
     rotorpos = origrotorpos;
   }

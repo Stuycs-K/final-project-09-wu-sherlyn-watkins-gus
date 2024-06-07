@@ -66,6 +66,8 @@ int enigmaTemp(Character pchar, int stepPart) {
   }
   if (stepPart >= 0) {
   pchar = plugboard(pchar);
+  } if (stepPart == 2) {
+    rotor3.back_rotate();
   } if (stepPart >= 1) {
   pchar = rotors(pchar);
   } if (stepPart >= 2) {
