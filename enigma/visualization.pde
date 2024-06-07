@@ -17,29 +17,16 @@ String[] rotorSplitter(Rotor rotor) {
     rotorParts[0] = rotorLetters.substring(0,curLetterPos);
     rotorParts[1] = Character.toString(rotorLetters.charAt(curLetterPos));
     rotorParts[2] = rotorLetters.substring(curLetterPos+1);
-    println("notntter: " + rotorParts[0] + rotorParts[1] + rotorParts[2]);
+    //println("notntter: " + rotorParts[0] + rotorParts[1] + rotorParts[2]);
   return rotorParts;
 }
 
 // prints a rotor with greentext
 void rotorPrinter(String[] rotorVisuals, int text_height, char curChar) {
-  int counter = 0;
-  print("printter: ");
-    while (counter < rotorVisuals[0].length()) {
-      print(Character.toString((rotorVisuals[0].charAt(counter) + curChar -65)));
-      text(rotorVisuals[0].charAt(counter),300+(20*counter),text_height); //default text_height: 420
-      counter++;
-    }
-    fill(0,255,0);
-    print(rotorVisuals[1]);
-    text(rotorVisuals[1],300+(20*counter),text_height);
-    counter++;
-    fill(255,255,255);
-    while (counter < rotorVisuals[2].length()) {
-      print(rotorVisuals[2].charAt(counter));
-      text(rotorVisuals[2].charAt(counter),300+(20*counter),text_height);
-      counter++;
-    }
-    println();
-    println("sum of rotorVisual arrays: " + (int) (rotorVisuals[0].length()+1+rotorVisuals[2].length()));
+  text(rotorVisuals[0],300,text_height);
+  fill(0,255,0);
+  text(rotorVisuals[1],300+(15*rotorVisuals[0].length()),text_height);
+  fill(255,255,255);
+  text(rotorVisuals[2],300+(15*rotorVisuals[0].length()+15),text_height);
+  //println("sum of rotorVisual arrays: " + (int) (rotorVisuals[0].length()+1+rotorVisuals[2].length()));
 }

@@ -40,7 +40,11 @@ Started representing rotorpos
 
 ### 6/5/24
 
-Progressed rotorpos visualization (continue at home today)
+Progressed rotorpos visualization
+
+### 6/6/24
+
+Proper rotor is displayed, rotorpos may not be correct 
 
 ## GUS WATKINS
 
