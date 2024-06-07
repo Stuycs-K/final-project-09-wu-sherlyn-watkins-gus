@@ -67,6 +67,9 @@ void setup() {
 
 // activate stepping mode
 public void activate() {
+  rotor3.reset();
+  rotor2.reset();
+  rotor1.reset();
   stepping = true;
   println("Stepping status: " + stepping);
 }
@@ -86,6 +89,9 @@ public void progress() {
   stepMod = 0;
   counter = 0;
   stepping = false;
+  rotor3.reset();
+  rotor2.reset();
+  rotor1.reset();
 }
 
 public void input(String text) {
