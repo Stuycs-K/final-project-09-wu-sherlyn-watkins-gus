@@ -59,7 +59,7 @@ String enigmaCipher(String sbeve, int stepPart) {
 
 
 // temp cipher 2: electric boogaloo
-int enigmaTemp(Character pchar, int stepPart) {
+Character enigmaTemp(Character pchar, int stepPart) {
   // immediately returns newInt if it's not a letter
   if (!Character.isLetter(pchar)) {
     return pchar;
