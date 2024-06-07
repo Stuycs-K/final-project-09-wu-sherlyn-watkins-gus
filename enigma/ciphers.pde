@@ -56,6 +56,8 @@ String enigmaCipher(String sbeve, int stepPart) {
   return modInput;
 }
 
+
+
 // temp cipher 2: electric boogaloo
 int enigmaTemp(Character pchar, int stepPart) {
   // immediately returns newInt if it's not a letter
