@@ -199,7 +199,7 @@ Character rotors(Character pchar) {
    println("Wheel 2 Encryption: ", pchar);
    pchar = rotor1.forward(pchar);
    println("Wheel 1 Encryption: ", pchar);
-   String ukwb = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
+
    pchar = reflector.charAt(pchar - 65);
    println("Reflector: ", pchar);
       
