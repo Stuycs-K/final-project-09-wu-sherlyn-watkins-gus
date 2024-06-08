@@ -190,6 +190,16 @@ Character plugboard(Character pchar) {
 }
 
 Character rotors(Character pchar) {
+   String[][] enigmaPacket = new String[9][4];
+   // format: current character, rotor3 position, rotor2 position, rotor1 position
+   // 0 - initial
+   // 1 - rotors rotate
+   // 2-4 - character is put through rotors
+   // 5 - character is reflected
+   // 6-8 - character is put through rotors
+   
+   enigmaPacket[0] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
+   
    rotor3.rotate();
    if (rotor3.onNotch()) {
      rotor2.rotate();
@@ -198,23 +208,34 @@ Character rotors(Character pchar) {
      }
    }
    println("Rotors Position: ", (char)(rotor1.rotorpos + 65), (char)(rotor2.rotorpos + 65), (char)(rotor3.rotorpos + 65));
-  
+   enigmaPacket[1] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
+   
    pchar = rotor3.forward(pchar);
    println("Wheel 3 Encryption: ", pchar);
+   enigmaPacket[2] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
    pchar = rotor2.forward(pchar);
    println("Wheel 2 Encryption: ", pchar);
+   enigmaPacket[3] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
    pchar = rotor1.forward(pchar);
    println("Wheel 1 Encryption: ", pchar);
+   enigmaPacket[4] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
 
    pchar = reflector.charAt(pchar - 65);
    println("Reflector: ", pchar);
+   enigmaPacket[5] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
       
    pchar = rotor1.backward(pchar);
    println("Wheel 1 Encryption: ", pchar);
+   enigmaPacket[6] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
    pchar = rotor2.backward(pchar);
    println("Wheel 2 Encryption: ", pchar);
+   enigmaPacket[7] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
    pchar = rotor3.backward(pchar);
    println("Wheel 3 Encryption: ", pchar);
+   enigmaPacket[8] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
+   for (int i = 0; i < 9; i++) {
+     printEnigmaPacket(enigmaPacket[i]);
+   }
    return pchar;
 }
 

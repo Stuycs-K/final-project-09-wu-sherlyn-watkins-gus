@@ -30,3 +30,8 @@ void rotorPrinter(String[] rotorVisuals, int text_height, char curChar) {
   text(rotorVisuals[2],300+(15*rotorVisuals[0].length()+15),text_height);
   //println("sum of rotorVisual arrays: " + (int) (rotorVisuals[0].length()+1+rotorVisuals[2].length()));
 }
+
+// prints an enigma packet
+void printEnigmaPacket(String[] enigmaPacket) {
+  println("Char: " + enigmaPacket[0] + " r3: " + enigmaPacket[1] + " r2: " + enigmaPacket[2] + " r1: " + enigmaPacket[3]);
+}
