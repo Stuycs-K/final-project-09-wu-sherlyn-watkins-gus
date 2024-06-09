@@ -46,6 +46,14 @@ Progressed rotorpos visualization
 
 Proper rotor is displayed, rotorpos may not be correct 
 
+### 6/7/24
+
+Brainstormed solutions to stepping not working
+
+### 6/8/24
+
+Created enigma packets
+
 ## GUS WATKINS
 
 ### 5/22/24

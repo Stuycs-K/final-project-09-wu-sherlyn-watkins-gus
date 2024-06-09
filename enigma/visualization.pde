@@ -35,3 +35,10 @@ void rotorPrinter(String[] rotorVisuals, int text_height, char curChar) {
 void printEnigmaPacket(String[] enigmaPacket) {
   println("Char: " + enigmaPacket[0] + " r3: " + enigmaPacket[1] + " r2: " + enigmaPacket[2] + " r1: " + enigmaPacket[3]);
 }
+
+// prints a full loop of enigma packets
+void printEnigmaPackets(String[][] enigmaPackets) {
+  for (int i = 0; i < enigmaPackets.length; i++) {
+    printEnigmaPacket(enigmaPackets[i]);
+  }
+}

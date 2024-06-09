@@ -13,6 +13,8 @@ int stepState = 0; // tracks what step it's on
 int stepNum = 3; // CHANGE THIS, tracks how many steps the cipher requires
 String prevInput = ""; // previous input to prevent multiple calls
 int prevCounter = -1; // previous counter to prevent multiple calls
+String[][][] enigmaPackets = new String[10][9][4]; // global list of enigma packets, 10 is a placeholder
+int globalChar = 0; // char # Stepping is currently on
 boolean stepping = false;
 
 // cipher parts
@@ -89,6 +91,8 @@ public void progress() {
   stepMod = 0;
   counter = 0;
   stepping = false;
+  enigmaPackets = new String[10][9][4];
+  globalChar = 0;
   rotor3.reset();
   rotor2.reset();
   rotor1.reset();
@@ -147,9 +151,13 @@ void draw() {
   // if not stepping
   else {
     if (prevInput.compareTo(curMessage) != 0) {
+      enigmaPackets = new String[curMessage.length()][9][4]; // reset the packets
       modified = enigmaCipher(curMessage,999);
       //modified = testStepCipher(curMessage,999);
       prevInput = curMessage;
+      for (int i = 0; i < curMessage.length(); i++) {
+        printEnigmaPackets(enigmaPackets[i]);
+      }
     }
     text("Stepping not activated", 400,825);
   }
@@ -234,8 +242,10 @@ Character rotors(Character pchar) {
    println("Wheel 3 Encryption: ", pchar);
    enigmaPacket[8] = new String[] {String.valueOf(pchar),String.valueOf(rotor3.rotorpos),String.valueOf(rotor2.rotorpos),String.valueOf(rotor1.rotorpos)};
    for (int i = 0; i < 9; i++) {
-     printEnigmaPacket(enigmaPacket[i]);
+     //println("enter packet assigning");
+     enigmaPackets[globalChar][i] = enigmaPacket[i];
    }
+   globalChar++;
    return pchar;
 }
 
