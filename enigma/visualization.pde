@@ -21,6 +21,18 @@ String[] rotorSplitter(Rotor rotor) {
   return rotorParts;
 }
 
+// splits rotor for easy printing: custom int edition
+String[] rotorSplitterCustom(Rotor rotor, int curLetterPos) {
+  String rotorLetters = rotor.letters();
+  //println("CURLETTERPOS: " + curLetterPos);
+  String[] rotorParts = new String[3];    
+    rotorParts[0] = rotorLetters.substring(0,curLetterPos);
+    rotorParts[1] = Character.toString(rotorLetters.charAt(curLetterPos));
+    rotorParts[2] = rotorLetters.substring(curLetterPos+1);
+    //println("notntter: " + rotorParts[0] + rotorParts[1] + rotorParts[2]);
+  return rotorParts;
+}
+
 // prints a rotor with greentext
 void rotorPrinter(String[] rotorVisuals, int text_height, char curChar) {
   text(rotorVisuals[0],300,text_height);

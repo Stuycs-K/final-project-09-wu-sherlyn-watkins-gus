@@ -10,7 +10,7 @@ String curMessage = ""; // tracks plaintext input
 String modified = ""; // tracks modified input
 char stepMod; // tracks stepping modified input
 int stepState = 0; // tracks what step it's on
-int stepNum = 3; // CHANGE THIS, tracks how many steps the cipher requires
+int stepNum = 9; // CHANGE THIS, tracks how many steps the cipher requires
 String prevInput = ""; // previous input to prevent multiple calls
 int prevCounter = -1; // previous counter to prevent multiple calls
 String[][][] enigmaPackets = new String[10][9][4]; // global list of enigma packets, 10 is a placeholder
@@ -80,6 +80,10 @@ public void activate() {
 public void step() {
   if (stepping) {
     //println("step increase");
+    stepState++;
+    if (stepState >= stepNum) {
+      stepState = 0;
+    }
     counter++;
   }
 }
@@ -134,11 +138,12 @@ void draw() {
   // if stepping
   if (stepping) {
     if (counter < curMessage.length()*stepNum) {
-      //println("prevCounter: " + prevCounter + " counter: " + counter);
       if (prevCounter != counter) {
-      int tempInt = (char)enigmaTemp(curMessage.charAt(counter/stepNum),counter%stepNum);
-      //int tempInt = (char)testStepCipherChar(curMessage.charAt(counter/stepNum),counter%stepNum);
-      stepMod = (char)tempInt;
+      //print("printing enigma packet: ");
+      //printEnigmaPacket(enigmaPackets[counter/stepNum][stepState]);
+      //printEnigmaPackets(enigmaPackets[counter/stepNum]);
+      stepMod = enigmaPackets[counter/stepNum][stepState][0].charAt(0);
+      println("stepmod: " + stepMod);
       prevCounter = counter;
       }
       text("Stepping input: "+modified.substring(0,counter/stepNum)+stepMod, 400,825);
@@ -152,18 +157,20 @@ void draw() {
   else {
     if (prevInput.compareTo(curMessage) != 0) {
       enigmaPackets = new String[curMessage.length()][9][4]; // reset the packets
+      curMessage = curMessage.toUpperCase();
       modified = enigmaCipher(curMessage,999);
       //modified = testStepCipher(curMessage,999);
       prevInput = curMessage;
-      for (int i = 0; i < curMessage.length(); i++) {
-        printEnigmaPackets(enigmaPackets[i]);
-      }
+      //for (int i = 0; i < curMessage.length(); i++) {
+        //printEnigmaPackets(enigmaPackets[i]);
+      //}
     }
     text("Stepping not activated", 400,825);
   }
   text("Modified: " + modified, 400,925);
   text("Stepping status: " + stepping, 400, 975);
   
+  // for reference: stepMod = enigmaPackets[counter/stepNum][stepState][0].charAt(0);
   // prints rotors
   String[] rotorVisuals = rotorSplitter(rotor3);
   text("Rotor 3: ",200,420 + 100*0);
