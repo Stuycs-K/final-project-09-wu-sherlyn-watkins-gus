@@ -95,3 +95,10 @@ Fixed the rotor apply function (and checked it against another implementation), 
 ### 6/5/24
 
 Finished the cipher implementation, added a basic plugboard display, began planning out what tasks still need to be done
+
+## REFERENCES/RESOURCES
+
+ControlP5 installation: https://www.sojamo.de/libraries/controlP5/#installation<br>
+How the Enigma machine works: https://www.101computing.net/enigma/<br>
+Encrypt/decrypt tool 1: https://cryptii.com/pipes/enigma-machine<br>
+Encrypt/decrypt tool 2: https://www.dcode.fr/enigma-machine-cipher<br>
