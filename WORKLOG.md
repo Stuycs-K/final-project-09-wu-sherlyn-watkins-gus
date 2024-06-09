@@ -54,6 +54,10 @@ Brainstormed solutions to stepping not working
 
 Created enigma packets
 
+### 6/9/24
+
+Overhauled stepping to accurate represent rotors with enigma packets
+
 ## GUS WATKINS
 
 ### 5/22/24
