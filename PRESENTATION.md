@@ -1,4 +1,37 @@
-# This document is required.
+[video google drive link](https://drive.google.com/file/d/1wezDwHR-7HhrRQ1frRDUXWSdc0Xj0gtM/view?usp=sharing)
+
+## Explanation
+
+Hello, and welcome to our presentation. We'll start off with a background on the enigma cipher, to how it works, then to a demo of our implementation and visualization (made in processing).
+
+So, the enigma machine was a device developed after world war 1 by a german company. which then sold it to a couple of people - including nazi germany. it played a massive part in world war 2, especially since poland cracked the cipher before the war even started! but, we're getting ahead of ourselves. how did this small box actually work?
+
+First, a key is pressed, sending an electrical signal onwards to what's called the plugboard. It contains plugs for every letter, and wires that you can use to hook up letters to each other - acting as a configurable substitution cipher.
+
+Next, the signal makes its way to the rotors. There are three slots for unique rotors, and the company that produced them made 8 versions of them - offering tons of configuration. Each rotor does a substitution cipher using its alphabet, before sending it off to the next one.
+
+Once it passes through all three rotors, it reaches the reflector. This bit of the machine reflects the electrical signal that's made it there and sends it all the way through the machine again, but backwards this time. The reflectors were also configurable with three different models, each performing another unique subsitution cipher.
+
+The signal goes back through the rotors, then the plugboard, then makes a lightbulb for the corresponding letter light up.
+
+So - stepping back for a moment - we've got the letter you input going through:
+a configurable subsitution cipher (the plugboard), three more substitution ciphers as rotors, another that reflects the signal, then all repeated backwards.
+
+but if it was all substitution ciphers, that would be simple - things get messy from here.
+
+whenever you press a letter on the machine's keyboard, the rotor furthest to the right shifts by one. this means that the substitution cipher changes for every letter - but that's not all. each rotor has some notches on it - and whenever a rotor turns onto a notch, it turns the rotor to the left of it by one. so as you type your message, there's this cascading effect that makes things more and more complicated. the state of the machine is constantly changing as you type your message out.
+
+and last but not least for this section is its flaws and how it was broken.
+
+So, there's one key feature of the enigma that helped with decoding - the fact that it's completely symmetrical. if the machine starts with the same state (so, the same rotor choices, rotor positions, and plugboard) and you type in ciphertext that used those same settings, you get the plaintext. That, in and of itself, isn't a huge problem - after all, it's a feature. However, problems arose when the allied forces got their hands on resources like machines identical to the custom german ones and leaked key tables. These procedural flaws by the germans led to its failure.
+
+And a final note to emphasize how unique this machine was - all of these systems were analog! The letter was an electrical signal, and every part had to be made to modify this signal in just the right way. Writing it in java makes things quite a bit easier, and MUCH, MUCH cheaper.
+
+Now, on to our demo.
+
+Slides: https://docs.google.com/presentation/d/1ccYmX1M4GigUkdWayuk17a4-gfTGjt7xs0SIwRSAZCg/edit#slide=id.g2e4df7b1e15_0_34
+
+## Demo
 Our project is a digital model of the Enigma machine. It was a cipher machine used in World War Two by Nazi Germany and was eventually cracked by the Allies. Here’s how it works:<br>
 There are multiple layers of encryption. The first is a plugboard, where pairs of connected letters are swapped when inputted. For example, if A and B were connected, if A was the input character, it would be turned into a B.<br>
 The second layer is the rotors. In our model, there are three rotors, labeled 3, 2, 1. Each rotor has a jumbled alphabet on it and one of the letters is the notch. When a key is pressed, the rightmost rotor (in this case, 3), is rotated. If it hits the notch, the next rotor is rotated, and the same goes for the next.<br>
